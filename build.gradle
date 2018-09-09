@@ -6,9 +6,11 @@ buildscript {
 		mavenCentral()
 		maven { url "https://repo.spring.io/snapshot" }
 		maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://plugins.gradle.org/m2/" }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.9")
 	}
 }
 
@@ -17,6 +19,7 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
+apply plugin: 'com.ewerk.gradle.plugins.querydsl'
 
 group = 'ru.xpendence'
 version = '0.0.1-SNAPSHOT'
@@ -38,6 +41,13 @@ ext {
 
 dependencies {
 	compile('com.vaadin:vaadin-spring-boot-starter')
+
+	compile group: 'com.querydsl', name: 'querydsl-jpa', version: '4.1.4'
+	compile group: 'com.querydsl', name: 'querydsl-apt', version: '4.1.4'
+
+	runtime('org.postgresql:postgresql')
+	runtime('com.h2database:h2')
+
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
@@ -46,4 +56,17 @@ dependencyManagement {
 	imports {
 		mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
 	}
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "$buildDir/generated/source/apt/main"
+        }
+    }
+}
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = "$buildDir/generated/source/apt/main"
 }
