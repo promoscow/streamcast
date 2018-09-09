@@ -20,5 +20,7 @@ public class MainView extends VerticalLayout {
 
         Label label = new Label("Hi!");
         add(label);
+
+
     }
 }
