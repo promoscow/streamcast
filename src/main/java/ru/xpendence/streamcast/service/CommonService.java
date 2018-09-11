@@ -49,4 +49,8 @@ public interface CommonService<
 
     @Transactional
     E getEntity(Long id);
+
+    R getRepository();
+
+    M getMapper();
 }
