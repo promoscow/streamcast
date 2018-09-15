@@ -15,8 +15,6 @@ import javax.persistence.*;
 @Entity
 @SQLDelete(sql = "UPDATE members SET active = 0 WHERE id = ?")
 @Where(clause = "active = 1")
-//@EqualsAndHashCode
-//@Builder
 public class Message extends AbstractEntity {
 
     private User author;

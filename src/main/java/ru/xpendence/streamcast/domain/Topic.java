@@ -16,8 +16,6 @@ import java.util.List;
 @Table(name = "topics")
 @SQLDelete(sql = "UPDATE members SET active = 0 WHERE id = ?")
 @Where(clause = "active = 1")
-//@EqualsAndHashCode
-//@Builder
 public class Topic extends AbstractEntity {
 
     private User author;

@@ -20,7 +20,22 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
 
     @PostConstruct
     public void setupMapper() {
-
+        mapper.createTypeMap(User.class, UserDto.class)
+                .addMappings(mapping -> {
+                    mapping.skip(UserDto::setAuthors);
+                    mapping.skip(UserDto::setSubscribers);
+                    mapping.skip(UserDto::setMessagesPosted);
+                    mapping.skip(UserDto::setTopicsCreated);
+                    mapping.skip(UserDto::setTopicsSubscribed);
+                }).setPostConverter(toDtoConverter());
+        mapper.createTypeMap(UserDto.class, User.class)
+                .addMappings(mapping -> {
+                    mapping.skip(User::setSubscribers);
+                    mapping.skip(User::setMessagesPosted);
+                    mapping.skip(User::setTopicsCreated);
+                    mapping.skip(User::setTopicsSubscribed);
+                    mapping.skip(User::setAuthors);
+                }).setPostConverter(toEntityConverter());
     }
 
     @Override
