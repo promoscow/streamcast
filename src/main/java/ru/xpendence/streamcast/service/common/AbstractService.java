@@ -1,15 +1,12 @@
-package ru.xpendence.streamcast.service;
+package ru.xpendence.streamcast.service.common;
 
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.EntityPathBase;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
 import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
 import ru.xpendence.streamcast.repository.RepositoryCustom;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,13 +23,22 @@ public abstract class AbstractService<
         M extends EntityDtoMapper<E, D>,
         R extends RepositoryCustom<E, Q, Long>> implements CommonService<E, D, Q, M, R> {
 
-    @Override
-    public Optional<D> save(D dto) {
-        return Optional.empty();
+    private final R repository;
+    private final M mapper;
+
+    @Autowired
+    public AbstractService(R repository, M mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
-    public List<D> saveAll(List<D> entries) {
+    public Optional<D> save(D dto) {
+        return Optional.of(mapper.convertToDto(repository.save(mapper.convertToEntity(dto))));
+    }
+
+    @Override
+    public List<D> saveAll(List<D> dtoList) {
         return null;
     }
 
@@ -47,22 +53,22 @@ public abstract class AbstractService<
     }
 
     @Override
-    public Page<D> getBetween(Long id, LocalDateTime from, LocalDateTime to, Pageable pageable) {
+    public List<D> getAll() {
         return null;
     }
 
     @Override
-    public Page<D> getAll(Predicate predicate, Pageable pageable) {
+    public Boolean deleteById(Long id) {
         return null;
     }
 
     @Override
-    public Boolean delete(Long id) {
+    public Boolean deleteAll() {
         return null;
     }
 
     @Override
-    public E getEntity(Long id) {
-        return null;
+    public void validate(Long id) {
+
     }
 }
