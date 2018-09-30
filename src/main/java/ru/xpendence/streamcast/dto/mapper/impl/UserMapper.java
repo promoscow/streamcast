@@ -1,10 +1,12 @@
 package ru.xpendence.streamcast.dto.mapper.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.xpendence.streamcast.domain.User;
 import ru.xpendence.streamcast.dto.UserDto;
 import ru.xpendence.streamcast.dto.mapper.AbstractDtoMapper;
 import ru.xpendence.streamcast.dto.mapper.Mapper;
+import ru.xpendence.streamcast.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
 
@@ -17,6 +19,9 @@ import javax.annotation.PostConstruct;
 @Component
 @Mapper(entity = User.class, dto = UserDto.class)
 public class UserMapper extends AbstractDtoMapper<User, UserDto> {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @PostConstruct
     public void setupMapper() {
@@ -41,11 +46,14 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
 
     @Override
     protected void toDtoConverterImpl(User source, UserDto destination) {
-        super.toDtoConverterImpl(source, destination);
+        destination.setAuthors(toIdList(source.getAuthors()));
+        destination.setSubscribers(toIdList(source.getSubscribers()));
+        destination.setMessagesPosted(toIdList(source.getMessagesPosted()));
+        destination.setTopicsCreated(toIdList(source.getTopicsCreated()));
+        destination.setTopicsSubscribed(toIdList(source.getTopicsSubscribed()));
     }
 
     @Override
     protected void toEntityConverterImpl(UserDto source, User destination) {
-        super.toEntityConverterImpl(source, destination);
     }
 }
