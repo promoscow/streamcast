@@ -19,6 +19,7 @@ public class Message extends AbstractEntity {
 
     private User author;
     private Topic topic;
+    private String text;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "authors")
@@ -32,11 +33,20 @@ public class Message extends AbstractEntity {
         return topic;
     }
 
+    @Column(name = "text")
+    public String getText() {
+        return text;
+    }
+
     public void setAuthor(User author) {
         this.author = author;
     }
 
     public void setTopic(Topic topic) {
         this.topic = topic;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }
