@@ -2,6 +2,8 @@ package ru.xpendence.streamcast.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import ru.xpendence.streamcast.dto.transfer.Validation;
 import ru.xpendence.streamcast.dto.transfer.View;
 
@@ -16,6 +18,8 @@ import java.time.LocalDateTime;
  * Time: 22:20
  * e-mail: 2262288@gmail.com
  */
+@ToString
+@EqualsAndHashCode
 public abstract class AbstractDto implements Serializable {
 
     @Null(groups = {Validation.New.class})

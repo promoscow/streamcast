@@ -1,7 +1,9 @@
 package ru.xpendence.streamcast.dto;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -9,6 +11,8 @@ import java.util.Objects;
  * Time: 9:29
  * e-mail: 2262288@gmail.com
  */
+@ToString
+@EqualsAndHashCode
 public class UserDto extends AbstractDto {
 
     private List<Long> authors;
@@ -55,23 +59,5 @@ public class UserDto extends AbstractDto {
 
     public void setMessagesPosted(List<Long> messagesPosted) {
         this.messagesPosted = messagesPosted;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserDto userDto = (UserDto) o;
-        return Objects.equals(authors, userDto.authors) &&
-                Objects.equals(subscribers, userDto.subscribers) &&
-                Objects.equals(topicsCreated, userDto.topicsCreated) &&
-                Objects.equals(topicsSubscribed, userDto.topicsSubscribed) &&
-                Objects.equals(messagesPosted, userDto.messagesPosted);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(authors, subscribers, topicsCreated, topicsSubscribed, messagesPosted);
     }
 }

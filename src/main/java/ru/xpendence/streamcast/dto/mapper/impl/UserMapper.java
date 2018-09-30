@@ -30,6 +30,7 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
                 }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(UserDto.class, User.class)
                 .addMappings(mapping -> {
+                    mapping.skip(User::setActive);
                     mapping.skip(User::setSubscribers);
                     mapping.skip(User::setMessagesPosted);
                     mapping.skip(User::setTopicsCreated);
