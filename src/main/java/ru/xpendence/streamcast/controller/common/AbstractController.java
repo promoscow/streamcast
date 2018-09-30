@@ -55,21 +55,22 @@ public abstract class AbstractController<
 
     @Override
     public ResponseEntity<D> get(Long id) {
-        return null;
+        return service.get(id).map(ResponseEntity::ok)
+                .orElseThrow(() -> new SampleException(ErrorType.ENTITY_NOT_FOUND.getDescription(), id));
     }
 
     @Override
-    public ResponseEntity<List<E>> getAll() {
-        return null;
+    public ResponseEntity<List<D>> getAll() {
+        return ResponseEntity.ok(service.getAll());
     }
 
     @Override
-    public Boolean delete(Long id) {
-        return null;
+    public ResponseEntity<Boolean> delete(Long id) {
+        return ResponseEntity.ok(service.deleteById(id));
     }
 
     @Override
-    public Boolean deleteAll() {
-        return null;
+    public ResponseEntity<Boolean> deleteAll() {
+        return ResponseEntity.ok(service.deleteAll());
     }
 }

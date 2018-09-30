@@ -28,11 +28,11 @@ public interface CommonController<E extends AbstractEntity, D extends AbstractDt
     ResponseEntity<D> get(@RequestParam Long id);
 
     @GetMapping("/all")
-    ResponseEntity<List<E>> getAll();
+    ResponseEntity<List<D>> getAll();
 
     @DeleteMapping
-    Boolean delete(@RequestParam Long id);
+    ResponseEntity<Boolean> delete(@RequestParam Long id);
 
     @DeleteMapping("/all")
-    Boolean deleteAll();
+    ResponseEntity<Boolean> deleteAll();
 }

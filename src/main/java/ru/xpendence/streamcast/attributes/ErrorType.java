@@ -7,7 +7,7 @@ package ru.xpendence.streamcast.attributes;
  * e-mail: 2262288@gmail.com
  */
 public enum ErrorType {
-    ENTITY_NOT_FOUND("Entity not found by id: %s"),
+    ENTITY_NOT_FOUND("Entity not found by id: %d"),
     ENTITY_NOT_SAVED("Entity not saved: %s"),
     ENTITY_NOT_UPDATED("Entity not updated: %s");
 
