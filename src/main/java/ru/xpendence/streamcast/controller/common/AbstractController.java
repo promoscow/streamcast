@@ -3,7 +3,7 @@ package ru.xpendence.streamcast.controller.common;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import ru.xpendence.streamcast.base.ErrorType;
+import ru.xpendence.streamcast.attributes.ErrorType;
 import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
 import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
@@ -39,19 +39,18 @@ public abstract class AbstractController<
     @Override
     public ResponseEntity<D> save(D dto) {
         return service.save(dto).map(ResponseEntity::ok)
-                .orElseThrow(() -> new SampleException(
-                        String.format(ErrorType.ENTITY_NOT_SAVED.getDescription(), dto.toString())
-                ));
+                .orElseThrow(() -> new SampleException(ErrorType.ENTITY_NOT_SAVED.getDescription(), dto.toString()));
     }
 
     @Override
     public ResponseEntity<List<D>> saveAll(List<D> dtoList) {
-        return null;
+        return ResponseEntity.ok(service.saveAll(dtoList));
     }
 
     @Override
     public ResponseEntity<D> update(D dto) {
-        return null;
+        return service.update(dto).map(ResponseEntity::ok)
+                .orElseThrow(() -> new SampleException(ErrorType.ENTITY_NOT_UPDATED.getDescription(), dto.toString()));
     }
 
     @Override

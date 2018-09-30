@@ -20,12 +20,12 @@ public class SampleExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseBody
     @ExceptionHandler(SampleException.class)
     public ResponseEntity<String> handle(SampleException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
     }
 
     @ResponseBody
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<String> handle(ConstraintViolationException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
     }
 }

@@ -11,4 +11,12 @@ public class SampleException extends RuntimeException {
     public SampleException(String message) {
         super(message);
     }
+
+    public SampleException(String message, Long id) {
+        super(String.format(message, id));
+    }
+
+    public SampleException(String message, String entity) {
+        super(String.format(message, entity));
+    }
 }

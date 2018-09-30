@@ -15,6 +15,7 @@ import java.util.stream.Stream;
  * e-mail: 2262288@gmail.com
  */
 public class CollectionUtils {
+
     private CollectionUtils() {
     }
 

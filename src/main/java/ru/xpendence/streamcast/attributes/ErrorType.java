@@ -1,4 +1,4 @@
-package ru.xpendence.streamcast.base;
+package ru.xpendence.streamcast.attributes;
 
 /**
  * Author: Vyacheslav Chernyshov
