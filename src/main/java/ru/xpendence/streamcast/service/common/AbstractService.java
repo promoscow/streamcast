@@ -2,9 +2,11 @@ package ru.xpendence.streamcast.service.common;
 
 import com.querydsl.core.types.dsl.EntityPathBase;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.xpendence.streamcast.attributes.ErrorType;
 import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
 import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
+import ru.xpendence.streamcast.exception.DatabaseException;
 import ru.xpendence.streamcast.repository.RepositoryCustom;
 
 import java.util.List;
@@ -39,36 +41,38 @@ public abstract class AbstractService<
 
     @Override
     public List<D> saveAll(List<D> dtoList) {
-        return null;
+        return mapper.convertToDtoList(repository.saveAll(mapper.convertToEntityList(dtoList)));
     }
 
     @Override
     public Optional<D> update(D dto) {
-        return Optional.empty();
+        return Optional.of(mapper.convertToDto(repository.save(mapper.convertToEntity(dto))));
     }
 
     @Override
-    public Optional<D> get(Long id) {
-        return Optional.empty();
+    public D get(Long id) {
+        return repository.findById(id).map(mapper::convertToDto)
+                .orElseThrow(() -> new DatabaseException(ErrorType.ENTITY_NOT_FOUND.getDescription(), id));
     }
 
     @Override
     public List<D> getAll() {
-        return null;
+        return mapper.convertToDtoList(repository.findAll());
     }
 
     @Override
     public Boolean deleteById(Long id) {
-        return null;
+        repository.deleteById(id);
+        return !repository.findById(id).isPresent();
     }
 
     @Override
     public Boolean deleteAll() {
-        return null;
+        repository.deleteAll();
+        return repository.findAll().isEmpty();
     }
 
     @Override
     public void validate(Long id) {
-
     }
 }

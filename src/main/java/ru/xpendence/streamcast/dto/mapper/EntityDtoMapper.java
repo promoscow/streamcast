@@ -70,4 +70,12 @@ public interface EntityDtoMapper<E extends AbstractEntity, D extends AbstractDto
     default <S extends AbstractEntity> List<S> toEntityList(Iterable<S> src) {
         return StreamSupport.stream(src.spliterator(), false).collect(Collectors.toList());
     }
+
+    default List<E> convertToEntityList(List<D> dtoList) {
+        return dtoList.stream().map(this::convertToEntity).collect(Collectors.toList());
+    }
+
+    default List<D> convertToDtoList(List<E> entities) {
+        return entities.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
 }

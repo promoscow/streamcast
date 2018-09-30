@@ -7,7 +7,7 @@ import ru.xpendence.streamcast.attributes.ErrorType;
 import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
 import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
-import ru.xpendence.streamcast.exception.SampleException;
+import ru.xpendence.streamcast.exception.DatabaseException;
 import ru.xpendence.streamcast.repository.RepositoryCustom;
 import ru.xpendence.streamcast.service.common.CommonService;
 
@@ -39,7 +39,7 @@ public abstract class AbstractController<
     @Override
     public ResponseEntity<D> save(D dto) {
         return service.save(dto).map(ResponseEntity::ok)
-                .orElseThrow(() -> new SampleException(ErrorType.ENTITY_NOT_SAVED.getDescription(), dto.toString()));
+                .orElseThrow(() -> new DatabaseException(ErrorType.ENTITY_NOT_SAVED.getDescription(), dto.toString()));
     }
 
     @Override
@@ -50,13 +50,12 @@ public abstract class AbstractController<
     @Override
     public ResponseEntity<D> update(D dto) {
         return service.update(dto).map(ResponseEntity::ok)
-                .orElseThrow(() -> new SampleException(ErrorType.ENTITY_NOT_UPDATED.getDescription(), dto.toString()));
+                .orElseThrow(() -> new DatabaseException(ErrorType.ENTITY_NOT_UPDATED.getDescription(), dto.toString()));
     }
 
     @Override
     public ResponseEntity<D> get(Long id) {
-        return service.get(id).map(ResponseEntity::ok)
-                .orElseThrow(() -> new SampleException(ErrorType.ENTITY_NOT_FOUND.getDescription(), id));
+        return ResponseEntity.ok(service.get(id));
     }
 
     @Override

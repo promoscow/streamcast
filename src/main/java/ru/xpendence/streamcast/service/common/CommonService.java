@@ -28,7 +28,7 @@ public interface CommonService<
 
     Optional<D> update(D dto);
 
-    Optional<D> get(Long id);
+    D get(Long id);
 
     List<D> getAll();
 

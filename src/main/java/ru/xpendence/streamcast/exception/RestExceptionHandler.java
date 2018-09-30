@@ -15,11 +15,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * e-mail: 2262288@gmail.com
  */
 @ControllerAdvice
-public class SampleExceptionHandler extends ResponseEntityExceptionHandler {
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseBody
-    @ExceptionHandler(SampleException.class)
-    public ResponseEntity<String> handle(SampleException e) {
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<String> handle(DatabaseException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
     }
 
