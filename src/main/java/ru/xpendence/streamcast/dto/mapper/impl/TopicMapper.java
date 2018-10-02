@@ -6,6 +6,8 @@ import ru.xpendence.streamcast.dto.TopicDto;
 import ru.xpendence.streamcast.dto.mapper.AbstractDtoMapper;
 import ru.xpendence.streamcast.dto.mapper.Mapper;
 
+import javax.annotation.PostConstruct;
+
 /**
  * Author: Vyacheslav Chernyshov
  * Date: 28.09.18
@@ -15,4 +17,30 @@ import ru.xpendence.streamcast.dto.mapper.Mapper;
 @Component
 @Mapper(entity = Topic.class, dto = TopicDto.class)
 public class TopicMapper extends AbstractDtoMapper<Topic, TopicDto> {
+
+    @PostConstruct
+    public void setupMapper() {
+        mapper.createTypeMap(Topic.class, TopicDto.class)
+                .addMappings(m -> {
+                    m.skip(TopicDto::setAuthor);
+                    m.skip(TopicDto::setSubscribers);
+                    m.skip(TopicDto::setMessages);
+                }).setPostConverter(toDtoConverter());
+        mapper.createTypeMap(TopicDto.class, Topic.class)
+                .addMappings(m -> {
+                    m.skip(Topic::setAuthor);
+                    m.skip(Topic::setSubscribers);
+                    m.skip(Topic::setMessages);
+                }).setPostConverter(toEntityConverter());
+    }
+
+    @Override
+    protected void toDtoConverterImpl(Topic source, TopicDto destination) {
+        super.toDtoConverterImpl(source, destination);
+    }
+
+    @Override
+    protected void toEntityConverterImpl(TopicDto source, Topic destination) {
+        super.toEntityConverterImpl(source, destination);
+    }
 }

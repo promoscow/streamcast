@@ -17,6 +17,7 @@ public class MessageDto extends AbstractDto {
 
     private User author;
     private Topic topic;
+    private String text;
 
     public User getAuthor() {
         return author;
@@ -32,5 +33,13 @@ public class MessageDto extends AbstractDto {
 
     public void setTopic(Topic topic) {
         this.topic = topic;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }
