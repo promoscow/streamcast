@@ -26,21 +26,23 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
     @PostConstruct
     public void setupMapper() {
         mapper.createTypeMap(User.class, UserDto.class)
-                .addMappings(mapping -> {
-                    mapping.skip(UserDto::setAuthors);
-                    mapping.skip(UserDto::setSubscribers);
-                    mapping.skip(UserDto::setMessagesPosted);
-                    mapping.skip(UserDto::setTopicsCreated);
-                    mapping.skip(UserDto::setTopicsSubscribed);
+                .addMappings(m -> {
+                    m.skip(UserDto::setActive);
+                    m.skip(UserDto::setAuthors);
+                    m.skip(UserDto::setSubscribers);
+                    m.skip(UserDto::setMessagesPosted);
+                    m.skip(UserDto::setTopicsCreated);
+                    m.skip(UserDto::setTopicsSubscribed);
+                    m.skip(UserDto::setErrorMessage);
                 }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(UserDto.class, User.class)
-                .addMappings(mapping -> {
-                    mapping.skip(User::setActive);
-                    mapping.skip(User::setSubscribers);
-                    mapping.skip(User::setMessagesPosted);
-                    mapping.skip(User::setTopicsCreated);
-                    mapping.skip(User::setTopicsSubscribed);
-                    mapping.skip(User::setAuthors);
+                .addMappings(m -> {
+                    m.skip(User::setActive);
+                    m.skip(User::setSubscribers);
+                    m.skip(User::setMessagesPosted);
+                    m.skip(User::setTopicsCreated);
+                    m.skip(User::setTopicsSubscribed);
+                    m.skip(User::setAuthors);
                 }).setPostConverter(toEntityConverter());
     }
 

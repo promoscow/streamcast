@@ -24,6 +24,7 @@ public class MessageMapper extends AbstractDtoMapper<Message, MessageDto> {
                 .addMappings(m -> {
                     m.skip(MessageDto::setAuthor);
                     m.skip(MessageDto::setTopic);
+                    m.skip(MessageDto::setErrorMessage);
                 }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(MessageDto.class, Message.class)
                 .addMappings(m -> {

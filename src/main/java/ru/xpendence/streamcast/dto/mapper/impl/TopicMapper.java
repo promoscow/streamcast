@@ -25,6 +25,7 @@ public class TopicMapper extends AbstractDtoMapper<Topic, TopicDto> {
                     m.skip(TopicDto::setAuthor);
                     m.skip(TopicDto::setSubscribers);
                     m.skip(TopicDto::setMessages);
+                    m.skip(TopicDto::setErrorMessage);
                 }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(TopicDto.class, Topic.class)
                 .addMappings(m -> {
@@ -36,7 +37,9 @@ public class TopicMapper extends AbstractDtoMapper<Topic, TopicDto> {
 
     @Override
     protected void toDtoConverterImpl(Topic source, TopicDto destination) {
-        super.toDtoConverterImpl(source, destination);
+        destination.setAuthor(toId(source.getAuthor()));
+        destination.setSubscribers(toIdList(source.getSubscribers()));
+        destination.setMessages(toIdList(source.getMessages()));
     }
 
     @Override
