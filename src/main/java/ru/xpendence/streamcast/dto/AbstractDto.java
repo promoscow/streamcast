@@ -2,7 +2,7 @@ package ru.xpendence.streamcast.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.EqualsAndHashCode;
+import lombok.Data;
 import lombok.ToString;
 import ru.xpendence.streamcast.dto.transfer.Validation;
 import ru.xpendence.streamcast.dto.transfer.View;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  * e-mail: 2262288@gmail.com
  */
 @ToString
-@EqualsAndHashCode
+@Data
 public abstract class AbstractDto implements Serializable {
 
     @Null(groups = {Validation.New.class})
@@ -38,36 +38,4 @@ public abstract class AbstractDto implements Serializable {
 
     @JsonView(value = {View.DoNotShow.class})
     private Long active;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public Long getActive() {
-        return active;
-    }
-
-    public void setActive(Long active) {
-        this.active = active;
-    }
 }
