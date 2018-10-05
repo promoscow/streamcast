@@ -1,5 +1,6 @@
 package ru.xpendence.streamcast.dto;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -12,7 +13,8 @@ import java.util.List;
  * e-mail: 2262288@gmail.com
  */
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
+@Builder
 public class TopicDto extends AbstractDto {
 
     private Long author;

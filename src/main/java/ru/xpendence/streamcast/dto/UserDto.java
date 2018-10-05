@@ -1,9 +1,8 @@
 package ru.xpendence.streamcast.dto;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -13,8 +12,10 @@ import java.util.List;
  * e-mail: 2262288@gmail.com
  */
 @EqualsAndHashCode(callSuper = false)
-@ToString
+@ToString(callSuper = true)
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto extends AbstractDto {
 
     private List<Long> authors;
@@ -22,6 +23,25 @@ public class UserDto extends AbstractDto {
     private List<Long> topicsCreated;
     private List<Long> topicsSubscribed;
     private List<Long> messagesPosted;
+
+    @Builder
+    public UserDto(Long id,
+                   String errorMessage,
+                   LocalDateTime created,
+                   Long active,
+                   List<Long> authors,
+                   List<Long> subscribers,
+                   List<Long> topicsCreated,
+                   List<Long> topicsSubscribed,
+                   List<Long> messagesPosted
+    ) {
+        super(id, errorMessage, created, active);
+        this.authors = authors;
+        this.subscribers = subscribers;
+        this.topicsCreated = topicsCreated;
+        this.topicsSubscribed = topicsSubscribed;
+        this.messagesPosted = messagesPosted;
+    }
 
     public List<Long> getAuthors() {
         return authors;

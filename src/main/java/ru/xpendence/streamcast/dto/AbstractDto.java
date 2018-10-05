@@ -2,7 +2,9 @@ package ru.xpendence.streamcast.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ru.xpendence.streamcast.dto.transfer.Validation;
 import ru.xpendence.streamcast.dto.transfer.View;
@@ -20,6 +22,8 @@ import java.time.LocalDateTime;
  */
 @ToString
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class AbstractDto implements Serializable {
 
     @Null(groups = {Validation.New.class})

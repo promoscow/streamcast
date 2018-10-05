@@ -1,5 +1,6 @@
 package ru.xpendence.streamcast.dto;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import ru.xpendence.streamcast.domain.Topic;
@@ -12,7 +13,8 @@ import ru.xpendence.streamcast.domain.User;
  * e-mail: 2262288@gmail.com
  */
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
+@Builder
 public class MessageDto extends AbstractDto {
 
     private User author;
