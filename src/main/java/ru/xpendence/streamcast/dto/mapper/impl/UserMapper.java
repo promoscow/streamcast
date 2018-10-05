@@ -64,14 +64,14 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
 
     @Override
     protected void toEntityConverterImpl(UserDto source, User destination) {
-        whenNotNull(source, s -> {
+        whenNotNull(source.getAuthors(), authors -> {
             QUser qUser = QUser.user;
             destination.setAuthors(
                     new JPAQuery<>(entityManager)
                             .select(qUser)
                             .from(qUser)
                             .innerJoin(qUser.authors, qUser)
-                            .on(qUser.id.eq(s.getId()))
+                            .on(qUser.id.in(authors))
                             .fetch());
         });
     }

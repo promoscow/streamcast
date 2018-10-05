@@ -30,7 +30,7 @@ public abstract class AbstractEntity implements Serializable {
     }
 
     @Column(name = "created", updatable = false)
-    public LocalDateTime getCreated() {
+    private LocalDateTime getCreated() {
         return created;
     }
 
@@ -64,11 +64,11 @@ public abstract class AbstractEntity implements Serializable {
         this.id = id;
     }
 
-    public void setCreated(LocalDateTime created) {
+    private void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
-    public void setUpdated(LocalDateTime updated) {
+    private void setUpdated(LocalDateTime updated) {
         this.updated = updated;
     }
 }
