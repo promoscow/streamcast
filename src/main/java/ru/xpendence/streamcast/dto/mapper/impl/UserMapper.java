@@ -3,12 +3,15 @@ package ru.xpendence.streamcast.dto.mapper.impl;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.xpendence.streamcast.domain.QMessage;
+import ru.xpendence.streamcast.domain.QTopic;
 import ru.xpendence.streamcast.domain.QUser;
 import ru.xpendence.streamcast.domain.User;
 import ru.xpendence.streamcast.dto.UserDto;
 import ru.xpendence.streamcast.dto.mapper.AbstractDtoMapper;
 import ru.xpendence.streamcast.dto.mapper.Mapper;
-import ru.xpendence.streamcast.repository.UserRepository;
+import ru.xpendence.streamcast.repository.MessageRepository;
+import ru.xpendence.streamcast.repository.TopicRepository;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -24,11 +27,20 @@ import javax.persistence.PersistenceContext;
 @Mapper(entity = User.class, dto = UserDto.class)
 public class UserMapper extends AbstractDtoMapper<User, UserDto> {
 
+    private final MessageRepository messageRepository;
+    private final TopicRepository topicRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public UserMapper(MessageRepository messageRepository,
+                      TopicRepository topicRepository) {
+        this.messageRepository = messageRepository;
+        this.topicRepository = topicRepository;
+    }
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    private QUser qUser = QUser.user;
 
     @PostConstruct
     public void setupMapper() {
@@ -64,14 +76,26 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
 
     @Override
     protected void toEntityConverterImpl(UserDto source, User destination) {
-        whenNotNull(source.getAuthors(), authors -> {
-            QUser qUser = QUser.user;
-            destination.setAuthors(
-                    new JPAQueryFactory(entityManager)
-                            .selectFrom(qUser)
-                            .innerJoin(qUser.subscribers, qUser)
-                            .on(qUser.id.in(authors))
-                            .fetch());
-        });
+        whenNotNull(source.getAuthors(), authors
+                -> destination.setAuthors(
+                new JPAQueryFactory(entityManager)
+                        .selectFrom(qUser)
+                        .innerJoin(qUser.authors, qUser)
+                        .on(qUser.id.in(authors))
+                        .fetch()));
+        whenNotNull(source.getSubscribers(), subscribers
+                -> destination.setSubscribers(
+                new JPAQueryFactory(entityManager)
+                        .selectFrom(qUser)
+                        .innerJoin(qUser.subscribers, qUser)
+                        .on(qUser.id.in(subscribers))
+                        .fetch()
+        ));
+        whenNotNull(source.getMessagesPosted(), messages
+                -> destination.setMessagesPosted(toEntityList(messageRepository.findAll(QMessage.message.id.in(messages)))));
+        whenNotNull(source.getTopicsCreated(), topics
+                -> destination.setTopicsCreated(toEntityList(topicRepository.findAll(QTopic.topic.id.in(topics)))));
+        whenNotNull(source.getTopicsSubscribed(), topics
+                -> destination.setTopicsSubscribed(toEntityList(topicRepository.findAll(QTopic.topic.id.in(topics)))));
     }
 }

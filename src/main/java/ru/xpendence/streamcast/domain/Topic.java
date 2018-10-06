@@ -31,8 +31,8 @@ public class Topic extends AbstractEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "subscribers_topics",
-            joinColumns = @JoinColumn(name = "topic_id"),
-            inverseJoinColumns = @JoinColumn(name = "subscriber_id")
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "topic_id")
     )
     public List<User> getSubscribers() {
         return subscribers;

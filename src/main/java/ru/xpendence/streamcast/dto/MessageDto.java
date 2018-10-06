@@ -3,8 +3,6 @@ package ru.xpendence.streamcast.dto;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import ru.xpendence.streamcast.domain.Topic;
-import ru.xpendence.streamcast.domain.User;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -17,23 +15,23 @@ import ru.xpendence.streamcast.domain.User;
 @Builder
 public class MessageDto extends AbstractDto {
 
-    private User author;
-    private Topic topic;
+    private Long author;
+    private Long topic;
     private String text;
 
-    public User getAuthor() {
+    public Long getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Long author) {
         this.author = author;
     }
 
-    public Topic getTopic() {
+    public Long getTopic() {
         return topic;
     }
 
-    public void setTopic(Topic topic) {
+    public void setTopic(Long topic) {
         this.topic = topic;
     }
 

@@ -1,10 +1,13 @@
 package ru.xpendence.streamcast.dto.mapper.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.xpendence.streamcast.domain.Message;
 import ru.xpendence.streamcast.dto.MessageDto;
 import ru.xpendence.streamcast.dto.mapper.AbstractDtoMapper;
 import ru.xpendence.streamcast.dto.mapper.Mapper;
+import ru.xpendence.streamcast.repository.TopicRepository;
+import ru.xpendence.streamcast.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
 
@@ -17,6 +20,12 @@ import javax.annotation.PostConstruct;
 @Component
 @Mapper(entity = Message.class, dto = MessageDto.class)
 public class MessageMapper extends AbstractDtoMapper<Message, MessageDto> {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private TopicRepository topicRepository;
 
     @PostConstruct
     public void setupMapper() {
@@ -35,11 +44,13 @@ public class MessageMapper extends AbstractDtoMapper<Message, MessageDto> {
 
     @Override
     protected void toDtoConverterImpl(Message source, MessageDto destination) {
-        super.toDtoConverterImpl(source, destination);
+        destination.setAuthor(toId(source.getAuthor()));
+        destination.setTopic(toId(source.getTopic()));
     }
 
     @Override
     protected void toEntityConverterImpl(MessageDto source, Message destination) {
-        super.toEntityConverterImpl(source, destination);
+        whenNotNull(source.getAuthor(), author -> destination.setAuthor(userRepository.getOne(author)));
+        whenNotNull(source.getTopic(), topic -> destination.setTopic(topicRepository.getOne(topic)));
     }
 }

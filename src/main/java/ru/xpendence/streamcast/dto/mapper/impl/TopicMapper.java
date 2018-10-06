@@ -1,10 +1,15 @@
 package ru.xpendence.streamcast.dto.mapper.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.xpendence.streamcast.domain.QMessage;
+import ru.xpendence.streamcast.domain.QUser;
 import ru.xpendence.streamcast.domain.Topic;
 import ru.xpendence.streamcast.dto.TopicDto;
 import ru.xpendence.streamcast.dto.mapper.AbstractDtoMapper;
 import ru.xpendence.streamcast.dto.mapper.Mapper;
+import ru.xpendence.streamcast.repository.MessageRepository;
+import ru.xpendence.streamcast.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
 
@@ -17,6 +22,16 @@ import javax.annotation.PostConstruct;
 @Component
 @Mapper(entity = Topic.class, dto = TopicDto.class)
 public class TopicMapper extends AbstractDtoMapper<Topic, TopicDto> {
+
+    private final UserRepository userRepository;
+    private final MessageRepository messageRepository;
+
+    @Autowired
+    public TopicMapper(UserRepository userRepository,
+                       MessageRepository messageRepository) {
+        this.userRepository = userRepository;
+        this.messageRepository = messageRepository;
+    }
 
     @PostConstruct
     public void setupMapper() {
@@ -44,6 +59,10 @@ public class TopicMapper extends AbstractDtoMapper<Topic, TopicDto> {
 
     @Override
     protected void toEntityConverterImpl(TopicDto source, Topic destination) {
-        super.toEntityConverterImpl(source, destination);
+        whenNotNull(source.getAuthor(), author -> destination.setAuthor(userRepository.getOne(author)));
+        whenNotNull(source.getSubscribers(), subscribers
+                -> destination.setSubscribers(toEntityList(userRepository.findAll(QUser.user.id.in(subscribers)))));
+        whenNotNull(source.getMessages(), messages
+                -> destination.setMessages(toEntityList(messageRepository.findAll(QMessage.message.id.in(messages)))));
     }
 }

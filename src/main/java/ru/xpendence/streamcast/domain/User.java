@@ -27,8 +27,8 @@ public class User extends AbstractEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "authors_subscribers",
-            joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name = "subscriber_id")
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     public List<User> getAuthors() {
         return authors;
@@ -37,8 +37,8 @@ public class User extends AbstractEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "authors_subscribers",
-            joinColumns = @JoinColumn(name = "subscriber_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "subscriber_id")
     )
     public List<User> getSubscribers() {
         return subscribers;
@@ -52,8 +52,8 @@ public class User extends AbstractEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "subscribers_topics",
-            joinColumns = @JoinColumn(name = "subscriber_id"),
-            inverseJoinColumns = @JoinColumn(name = "topic_id")
+            joinColumns = @JoinColumn(name = "topic_id"),
+            inverseJoinColumns = @JoinColumn(name = "subscriber_id")
     )
     public List<Topic> getTopicsSubscribed() {
         return topicsSubscribed;
