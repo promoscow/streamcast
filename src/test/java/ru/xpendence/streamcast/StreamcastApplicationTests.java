@@ -5,19 +5,30 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import ru.xpendence.streamcast.domain.User;
 import ru.xpendence.streamcast.dto.UserDto;
 import ru.xpendence.streamcast.dto.mapper.impl.UserMapper;
+import ru.xpendence.streamcast.repository.UserRepository;
 import ru.xpendence.streamcast.service.UserService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class StreamcastApplicationTests {
 
+	@PersistenceContext
+	private EntityManager entityManager;
+
 	@Autowired
 	private UserService service;
+
+	@Autowired
+    private UserRepository repository;
 
 	@Autowired
 	private UserMapper mapper;
@@ -42,11 +53,31 @@ public class StreamcastApplicationTests {
 	}
 
 	@Test
+    @Transactional
 	public void get() {
-		User user = mapper.convertToEntity(UserDto.builder().id(1000000000L).build());
-		System.out.println(user);
-		System.out.println(user.getAuthors());
-		System.out.println();
+
+//	    UserDto u1 = service.get(1000000000L);
+//        System.out.println(u1);
+
+//		User user = new JPAQueryFactory(entityManager)
+//                .selectFrom(QUser.user)
+//                .where(QUser.user.id.eq(1000000000L))
+//                .fetchOne();
+//        System.out.println("->");
+//        System.out.println(user.getId());
+//
+//        QUser qUser = QUser.user;
+//        List<User> list = new JPAQueryFactory(entityManager)
+//                .selectFrom(qUser)
+//                .innerJoin(qUser.authors, qUser)
+//                .on(qUser.id.in(Lists.newArrayList(1000000001L)))
+//                .fetch();
+//
+//        list.forEach(System.out::println);
+
+        User u2 = repository.getOne(1000000000L);
+        List<User> subscribers = u2.getSubscribers();
+        System.out.println();
 	}
 
 }

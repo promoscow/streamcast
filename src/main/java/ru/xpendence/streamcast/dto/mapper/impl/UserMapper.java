@@ -1,6 +1,6 @@
 package ru.xpendence.streamcast.dto.mapper.impl;
 
-import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.xpendence.streamcast.domain.QUser;
@@ -67,10 +67,9 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
         whenNotNull(source.getAuthors(), authors -> {
             QUser qUser = QUser.user;
             destination.setAuthors(
-                    new JPAQuery<>(entityManager)
-                            .select(qUser)
-                            .from(qUser)
-                            .innerJoin(qUser.authors, qUser)
+                    new JPAQueryFactory(entityManager)
+                            .selectFrom(qUser)
+                            .innerJoin(qUser.subscribers, qUser)
                             .on(qUser.id.in(authors))
                             .fetch());
         });
