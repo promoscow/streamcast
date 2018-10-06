@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  * Author: Vyacheslav Chernyshov
  * Date: 09.09.18
  * Time: 10:20
- * e-mail: vyacheslav.chernyshov@stoloto.ru
+ * e-mail: 2262288@gmail.com
  */
 @Route(value = "")
 @Theme(value = Lumo.class)

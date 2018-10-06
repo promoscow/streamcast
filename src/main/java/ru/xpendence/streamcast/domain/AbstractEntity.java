@@ -11,7 +11,7 @@ import java.util.Objects;
  * Author: Vyacheslav Chernyshov
  * Date: 07.09.2018
  * Time: 15:35
- * e-mail: vyacheslav.chernyshov@stoloto.ru
+ * e-mail: 2262288@gmail.com
  */
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
