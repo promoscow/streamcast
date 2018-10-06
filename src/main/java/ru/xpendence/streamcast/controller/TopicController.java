@@ -1,7 +1,7 @@
 package ru.xpendence.streamcast.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.xpendence.streamcast.controller.common.AbstractController;
 import ru.xpendence.streamcast.domain.QTopic;
 import ru.xpendence.streamcast.domain.Topic;
@@ -16,7 +16,7 @@ import ru.xpendence.streamcast.service.TopicService;
  * Time: 19:34
  * e-mail: 2262288@gmail.com
  */
-@Controller
+@RestController
 @RequestMapping("/topic")
 public class TopicController extends AbstractController<Topic, TopicDto, QTopic,
         EntityDtoMapper<Topic, TopicDto>, TopicRepository, TopicService> {

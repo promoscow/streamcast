@@ -3,6 +3,7 @@ package ru.xpendence.streamcast.controller.common;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import ru.xpendence.streamcast.attributes.ErrorType;
 import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
@@ -35,26 +36,25 @@ public abstract class AbstractController<
         this.service = service;
     }
 
-
     @Override
-    public ResponseEntity<D> save(D dto) {
+    public ResponseEntity<D> save(@RequestBody D dto) {
         return service.save(dto).map(ResponseEntity::ok)
                 .orElseThrow(() -> new DatabaseException(ErrorType.ENTITY_NOT_SAVED.getDescription(), dto.toString()));
     }
 
     @Override
-    public ResponseEntity<List<D>> saveAll(List<D> dtoList) {
+    public ResponseEntity<List<D>> saveAll(@RequestBody List<D> dtoList) {
         return ResponseEntity.ok(service.saveAll(dtoList));
     }
 
     @Override
-    public ResponseEntity<D> update(D dto) {
+    public ResponseEntity<D> update(@RequestBody D dto) {
         return service.update(dto).map(ResponseEntity::ok)
                 .orElseThrow(() -> new DatabaseException(ErrorType.ENTITY_NOT_UPDATED.getDescription(), dto.toString()));
     }
 
     @Override
-    public ResponseEntity<D> get(Long id) {
+    public ResponseEntity<D> get(@RequestBody Long id) {
         return ResponseEntity.ok(service.get(id));
     }
 
@@ -64,7 +64,7 @@ public abstract class AbstractController<
     }
 
     @Override
-    public ResponseEntity<Boolean> delete(Long id) {
+    public ResponseEntity<Boolean> delete(@RequestBody Long id) {
         return ResponseEntity.ok(service.deleteById(id));
     }
 

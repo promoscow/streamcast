@@ -27,7 +27,7 @@ public class UserDto extends AbstractDto {
     public UserDto(Long id,
                    String errorMessage,
                    LocalDateTime created,
-                   Long active,
+                   Integer active,
                    List<Long> authors,
                    List<Long> subscribers,
                    List<Long> topicsCreated,

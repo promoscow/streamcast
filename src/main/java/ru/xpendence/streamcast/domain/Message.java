@@ -1,5 +1,6 @@
 package ru.xpendence.streamcast.domain;
 
+import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -15,6 +16,7 @@ import javax.persistence.*;
 @Entity
 @SQLDelete(sql = "UPDATE members SET active = 0 WHERE id = ?")
 @Where(clause = "active = 1")
+@Setter
 public class Message extends AbstractEntity {
 
     private User author;
@@ -36,17 +38,5 @@ public class Message extends AbstractEntity {
     @Column(name = "text")
     public String getText() {
         return text;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 }

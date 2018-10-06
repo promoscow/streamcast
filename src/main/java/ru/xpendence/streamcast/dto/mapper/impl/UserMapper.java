@@ -3,6 +3,7 @@ package ru.xpendence.streamcast.dto.mapper.impl;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.xpendence.streamcast.attributes.ActiveType;
 import ru.xpendence.streamcast.domain.QMessage;
 import ru.xpendence.streamcast.domain.QTopic;
 import ru.xpendence.streamcast.domain.QUser;
@@ -67,11 +68,12 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
 
     @Override
     protected void toDtoConverterImpl(User source, UserDto destination) {
-        destination.setAuthors(toIdList(source.getAuthors()));
-        destination.setSubscribers(toIdList(source.getSubscribers()));
-        destination.setMessagesPosted(toIdList(source.getMessagesPosted()));
-        destination.setTopicsCreated(toIdList(source.getTopicsCreated()));
-        destination.setTopicsSubscribed(toIdList(source.getTopicsSubscribed()));
+        whenNotNull(source.getAuthors(), authors -> destination.setAuthors(toIdList(authors)));
+        whenNotNull(source.getSubscribers(), subscribers -> destination.setSubscribers(toIdList(subscribers)));
+        whenNotNull(source.getMessagesPosted(), messages -> destination.setMessagesPosted(toIdList(messages)));
+        whenNotNull(source.getTopicsCreated(), topics -> destination.setTopicsCreated(toIdList(topics)));
+        whenNotNull(source.getTopicsSubscribed(), topics -> destination.setTopicsSubscribed(toIdList(topics)));
+        destination.setActive(source.getActive().getId());
     }
 
     @Override
@@ -97,5 +99,7 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
                 -> destination.setTopicsCreated(toEntityList(topicRepository.findAll(QTopic.topic.id.in(topics)))));
         whenNotNull(source.getTopicsSubscribed(), topics
                 -> destination.setTopicsSubscribed(toEntityList(topicRepository.findAll(QTopic.topic.id.in(topics)))));
+        whenNotNull(source.getActive(), activeType
+                -> destination.setActive(ActiveType.valueOf(source.getActive())));
     }
 }

@@ -1,7 +1,7 @@
 package ru.xpendence.streamcast.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.xpendence.streamcast.controller.common.AbstractController;
 import ru.xpendence.streamcast.domain.Message;
 import ru.xpendence.streamcast.domain.QMessage;
@@ -16,7 +16,7 @@ import ru.xpendence.streamcast.service.MessageService;
  * Time: 19:38
  * e-mail: 2262288@gmail.com
  */
-@Controller
+@RestController
 @RequestMapping("/message")
 public class MessageController extends AbstractController<Message, MessageDto, QMessage,
         EntityDtoMapper<Message, MessageDto>, MessageRepository, MessageService> {

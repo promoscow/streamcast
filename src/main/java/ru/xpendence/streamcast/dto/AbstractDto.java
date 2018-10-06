@@ -41,5 +41,5 @@ public abstract class AbstractDto implements Serializable {
     private LocalDateTime created;
 
     @JsonView(value = {View.DoNotShow.class})
-    private Long active;
+    private Integer active;
 }

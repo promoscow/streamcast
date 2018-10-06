@@ -1,5 +1,6 @@
 package ru.xpendence.streamcast.domain;
 
+import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -16,14 +17,16 @@ import java.util.List;
 @Table(name = "topics")
 @SQLDelete(sql = "UPDATE members SET active = 0 WHERE id = ?")
 @Where(clause = "active = 1")
+@Setter
 public class Topic extends AbstractEntity {
 
     private User author;
     private List<User> subscribers;
     private List<Message> messages;
+    private String topic;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "users")
+    @JoinColumn(name = "author")
     public User getAuthor() {
         return author;
     }
@@ -43,15 +46,8 @@ public class Topic extends AbstractEntity {
         return messages;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public void setSubscribers(List<User> subscribers) {
-        this.subscribers = subscribers;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
+    @Column(name = "topic")
+    public String getTopic() {
+        return topic;
     }
 }

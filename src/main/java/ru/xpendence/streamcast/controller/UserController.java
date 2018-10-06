@@ -1,7 +1,7 @@
 package ru.xpendence.streamcast.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.xpendence.streamcast.controller.common.AbstractController;
 import ru.xpendence.streamcast.domain.QUser;
 import ru.xpendence.streamcast.domain.User;
@@ -16,7 +16,7 @@ import ru.xpendence.streamcast.service.UserService;
  * Time: 23:16
  * e-mail: 2262288@gmail.com
  */
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController extends AbstractController<User, UserDto, QUser,
         EntityDtoMapper<User, UserDto>, UserRepository, UserService> {

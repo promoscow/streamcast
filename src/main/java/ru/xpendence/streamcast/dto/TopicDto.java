@@ -20,19 +20,25 @@ public class TopicDto extends AbstractDto {
     private Long author;
     private List<Long> subscribers;
     private List<Long> messages;
+    private String topic;
+
+    public TopicDto() {
+    }
 
     @Builder
     public TopicDto(Long id,
                     String errorMessage,
                     LocalDateTime created,
-                    Long active,
+                    Integer active,
                     Long author,
                     List<Long> subscribers,
-                    List<Long> messages) {
+                    List<Long> messages,
+                    String topic) {
         super(id, errorMessage, created, active);
         this.author = author;
         this.subscribers = subscribers;
         this.messages = messages;
+        this.topic = topic;
     }
 
     public Long getAuthor() {
@@ -57,5 +63,13 @@ public class TopicDto extends AbstractDto {
 
     public void setMessages(List<Long> messages) {
         this.messages = messages;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 }

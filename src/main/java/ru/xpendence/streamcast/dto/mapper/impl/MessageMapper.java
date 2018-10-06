@@ -2,6 +2,7 @@ package ru.xpendence.streamcast.dto.mapper.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.xpendence.streamcast.attributes.ActiveType;
 import ru.xpendence.streamcast.domain.Message;
 import ru.xpendence.streamcast.dto.MessageDto;
 import ru.xpendence.streamcast.dto.mapper.AbstractDtoMapper;
@@ -34,11 +35,13 @@ public class MessageMapper extends AbstractDtoMapper<Message, MessageDto> {
                     m.skip(MessageDto::setAuthor);
                     m.skip(MessageDto::setTopic);
                     m.skip(MessageDto::setErrorMessage);
+                    m.skip(MessageDto::setActive);
                 }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(MessageDto.class, Message.class)
                 .addMappings(m -> {
                     m.skip(Message::setAuthor);
                     m.skip(Message::setTopic);
+                    m.skip(Message::setActive);
                 }).setPostConverter(toEntityConverter());
     }
 
@@ -46,11 +49,13 @@ public class MessageMapper extends AbstractDtoMapper<Message, MessageDto> {
     protected void toDtoConverterImpl(Message source, MessageDto destination) {
         destination.setAuthor(toId(source.getAuthor()));
         destination.setTopic(toId(source.getTopic()));
+        destination.setActive(source.getActive().getId());
     }
 
     @Override
     protected void toEntityConverterImpl(MessageDto source, Message destination) {
         whenNotNull(source.getAuthor(), author -> destination.setAuthor(userRepository.getOne(author)));
         whenNotNull(source.getTopic(), topic -> destination.setTopic(topicRepository.getOne(topic)));
+        whenNotNull(source.getActive(), activeType -> destination.setActive(ActiveType.valueOf(source.getActive())));
     }
 }

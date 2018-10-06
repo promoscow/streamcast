@@ -1,6 +1,7 @@
 package ru.xpendence.streamcast.dto;
 
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  * Time: 22:13
  * e-mail: 2262288@gmail.com
  */
+@NoArgsConstructor
 @ToString
 @EqualsAndHashCode(callSuper = false)
 public class MessageDto extends AbstractDto {
@@ -22,7 +24,7 @@ public class MessageDto extends AbstractDto {
     public MessageDto(Long id,
                       String errorMessage,
                       LocalDateTime created,
-                      Long active,
+                      Integer active,
                       Long author,
                       Long topic,
                       String text) {

@@ -1,5 +1,7 @@
 package ru.xpendence.streamcast.attributes;
 
+import java.util.Arrays;
+
 /**
  * Author: Vyacheslav Chernyshov
  * Date: 08.09.2018
@@ -18,5 +20,12 @@ public enum ActiveType {
 
     public Integer getId() {
         return id;
+    }
+
+    public static ActiveType valueOf(Integer id) {
+        return Arrays.stream(values())
+                .filter(v -> v.getId().equals(id))
+                .findFirst()
+                .orElse(ActiveType.DELETED);
     }
 }

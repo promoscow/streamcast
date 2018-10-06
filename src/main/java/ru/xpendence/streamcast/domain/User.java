@@ -1,5 +1,6 @@
 package ru.xpendence.streamcast.domain;
 
+import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE members SET active = 0 WHERE id = ?")
 @Where(clause = "active = 1")
+@Setter
 public class User extends AbstractEntity {
 
     private List<User> authors;
@@ -62,25 +64,5 @@ public class User extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")
     public List<Message> getMessagesPosted() {
         return messagesPosted;
-    }
-
-    public void setAuthors(List<User> authors) {
-        this.authors = authors;
-    }
-
-    public void setSubscribers(List<User> subscribers) {
-        this.subscribers = subscribers;
-    }
-
-    public void setTopicsCreated(List<Topic> topicsCreated) {
-        this.topicsCreated = topicsCreated;
-    }
-
-    public void setTopicsSubscribed(List<Topic> topicsSubscribed) {
-        this.topicsSubscribed = topicsSubscribed;
-    }
-
-    public void setMessagesPosted(List<Message> messagesPosted) {
-        this.messagesPosted = messagesPosted;
     }
 }

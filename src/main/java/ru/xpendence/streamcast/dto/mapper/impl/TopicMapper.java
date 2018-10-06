@@ -2,6 +2,7 @@ package ru.xpendence.streamcast.dto.mapper.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.xpendence.streamcast.attributes.ActiveType;
 import ru.xpendence.streamcast.domain.QMessage;
 import ru.xpendence.streamcast.domain.QUser;
 import ru.xpendence.streamcast.domain.Topic;
@@ -41,12 +42,14 @@ public class TopicMapper extends AbstractDtoMapper<Topic, TopicDto> {
                     m.skip(TopicDto::setSubscribers);
                     m.skip(TopicDto::setMessages);
                     m.skip(TopicDto::setErrorMessage);
+                    m.skip(TopicDto::setActive);
                 }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(TopicDto.class, Topic.class)
                 .addMappings(m -> {
                     m.skip(Topic::setAuthor);
                     m.skip(Topic::setSubscribers);
                     m.skip(Topic::setMessages);
+                    m.skip(Topic::setActive);
                 }).setPostConverter(toEntityConverter());
     }
 
@@ -55,6 +58,7 @@ public class TopicMapper extends AbstractDtoMapper<Topic, TopicDto> {
         destination.setAuthor(toId(source.getAuthor()));
         destination.setSubscribers(toIdList(source.getSubscribers()));
         destination.setMessages(toIdList(source.getMessages()));
+        destination.setActive(source.getActive().getId());
     }
 
     @Override
@@ -64,5 +68,7 @@ public class TopicMapper extends AbstractDtoMapper<Topic, TopicDto> {
                 -> destination.setSubscribers(toEntityList(userRepository.findAll(QUser.user.id.in(subscribers)))));
         whenNotNull(source.getMessages(), messages
                 -> destination.setMessages(toEntityList(messageRepository.findAll(QMessage.message.id.in(messages)))));
+        whenNotNull(source.getActive(), activeType
+                -> destination.setActive(ActiveType.valueOf(source.getActive())));
     }
 }
