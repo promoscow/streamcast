@@ -7,6 +7,8 @@ package ru.xpendence.streamcast.attributes;
  * e-mail: 2262288@gmail.com
  */
 public enum UserRole {
+    GUEST,
+    ADMIN,
     AUTHOR,
     SUBSCRIBER
 }
