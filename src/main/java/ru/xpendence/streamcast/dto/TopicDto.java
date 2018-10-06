@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -14,12 +15,25 @@ import java.util.List;
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@Builder
 public class TopicDto extends AbstractDto {
 
     private Long author;
     private List<Long> subscribers;
     private List<Long> messages;
+
+    @Builder
+    public TopicDto(Long id,
+                    String errorMessage,
+                    LocalDateTime created,
+                    Long active,
+                    Long author,
+                    List<Long> subscribers,
+                    List<Long> messages) {
+        super(id, errorMessage, created, active);
+        this.author = author;
+        this.subscribers = subscribers;
+        this.messages = messages;
+    }
 
     public Long getAuthor() {
         return author;

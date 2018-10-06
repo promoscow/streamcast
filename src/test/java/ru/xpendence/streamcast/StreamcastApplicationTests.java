@@ -17,7 +17,6 @@ import ru.xpendence.streamcast.service.UserService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -40,9 +39,7 @@ public class StreamcastApplicationTests {
 	public void contextLoads() {
         UserDto dto = UserDto
 				.builder()
-				.id(1L)
-				.active(1L)
-				.created(LocalDateTime.now())
+                .id(1L)
 				.build();
 
 		System.out.println(dto);

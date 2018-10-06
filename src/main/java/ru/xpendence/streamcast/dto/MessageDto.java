@@ -1,8 +1,9 @@
 package ru.xpendence.streamcast.dto;
 
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.time.LocalDateTime;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -12,12 +13,24 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@Builder
 public class MessageDto extends AbstractDto {
 
     private Long author;
     private Long topic;
     private String text;
+
+    public MessageDto(Long id,
+                      String errorMessage,
+                      LocalDateTime created,
+                      Long active,
+                      Long author,
+                      Long topic,
+                      String text) {
+        super(id, errorMessage, created, active);
+        this.author = author;
+        this.topic = topic;
+        this.text = text;
+    }
 
     public Long getAuthor() {
         return author;

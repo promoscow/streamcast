@@ -13,7 +13,6 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto extends AbstractDto {
