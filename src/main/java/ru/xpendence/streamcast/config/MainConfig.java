@@ -4,6 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
@@ -25,5 +27,10 @@ public class MainConfig {
                 .setSkipNullEnabled(true)
                 .setFieldAccessLevel(PRIVATE);
         return mapper;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);
     }
 }
