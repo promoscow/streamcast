@@ -23,7 +23,7 @@ public abstract class AbstractService<
         D extends AbstractDto,
         Q extends EntityPathBase<E>,
         M extends EntityDtoMapper<E, D>,
-        R extends RepositoryCustom<E, Q, Long>> implements CommonService<E, D, Q, M, R> {
+        R extends RepositoryCustom<E, Q, Long>> implements CommonService<E, D> {
 
     private final R repository;
     private final M mapper;

@@ -1,10 +1,8 @@
 package ru.xpendence.streamcast.service.common;
 
-import com.querydsl.core.types.dsl.EntityPathBase;
+import org.springframework.transaction.annotation.Transactional;
 import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
-import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
-import ru.xpendence.streamcast.repository.RepositoryCustom;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,19 +15,21 @@ import java.util.Optional;
  */
 public interface CommonService<
         E extends AbstractEntity,
-        D extends AbstractDto,
-        Q extends EntityPathBase<E>,
-        M extends EntityDtoMapper<E, D>,
-        R extends RepositoryCustom<E, Q, Long>> {
+        D extends AbstractDto> {
 
+    @Transactional
     Optional<D> save(D dto);
 
+    @Transactional
     List<D> saveAll(List<D> dtoList);
 
+    @Transactional
     Optional<D> update(D dto);
 
+    @Transactional
     D get(Long id);
 
+    @Transactional
     List<D> getAll();
 
     Boolean deleteById(Long id);

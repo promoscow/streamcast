@@ -24,7 +24,7 @@ public class Message extends AbstractEntity {
     private String text;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "authors")
+    @JoinColumn(name = "author")
     public User getAuthor() {
         return author;
     }
