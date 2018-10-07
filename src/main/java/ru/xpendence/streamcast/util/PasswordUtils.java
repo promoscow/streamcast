@@ -10,11 +10,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 public class PasswordUtils {
 
-    private static String encode() {
-        return new BCryptPasswordEncoder().encode("admin");
+    public static String encode(String password) {
+        return new BCryptPasswordEncoder().encode(password);
     }
 
     public static void main(String[] args) {
-        System.out.println(encode());
+        System.out.println(encode("admin"));
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.xpendence.streamcast.util.PasswordUtils;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -36,20 +37,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder);
         auth
                 .inMemoryAuthentication()
-                .withUser("admin")
-                .password("admin")
-                .roles("ADMIN");
+                .withUser("admin").password(PasswordUtils.encode("admin")).roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin**").access("hasRole('ADMIN')")
-                .and()
-                .formLogin()
-                .failureForwardUrl("/")
-                .successForwardUrl("/admin");
+                .and().formLogin()/*.failureForwardUrl("/")*/.successForwardUrl("/admin");
 //                .defaultSuccessUrl("/admin");
     }
 
