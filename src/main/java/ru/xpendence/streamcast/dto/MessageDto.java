@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 public class MessageDto extends AbstractDto {
 
-    private Long author;
     private Long topic;
     private String text;
 
@@ -25,21 +24,11 @@ public class MessageDto extends AbstractDto {
                       String errorMessage,
                       LocalDateTime created,
                       Integer active,
-                      Long author,
                       Long topic,
                       String text) {
         super(id, errorMessage, created, active);
-        this.author = author;
         this.topic = topic;
         this.text = text;
-    }
-
-    public Long getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Long author) {
-        this.author = author;
     }
 
     public Long getTopic() {

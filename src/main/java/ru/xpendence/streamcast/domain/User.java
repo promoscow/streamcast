@@ -24,7 +24,6 @@ public class User extends AbstractEntity {
     private List<User> subscribers;
     private List<Topic> topicsCreated;
     private List<Topic> topicsSubscribed;
-    private List<Message> messagesPosted;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -59,10 +58,5 @@ public class User extends AbstractEntity {
     )
     public List<Topic> getTopicsSubscribed() {
         return topicsSubscribed;
-    }
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")
-    public List<Message> getMessagesPosted() {
-        return messagesPosted;
     }
 }

@@ -8,7 +8,6 @@ import ru.xpendence.streamcast.dto.MessageDto;
 import ru.xpendence.streamcast.dto.mapper.AbstractDtoMapper;
 import ru.xpendence.streamcast.dto.mapper.Mapper;
 import ru.xpendence.streamcast.repository.TopicRepository;
-import ru.xpendence.streamcast.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
 
@@ -22,24 +21,23 @@ import javax.annotation.PostConstruct;
 @Mapper(entity = Message.class, dto = MessageDto.class)
 public class MessageMapper extends AbstractDtoMapper<Message, MessageDto> {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final TopicRepository topicRepository;
 
     @Autowired
-    private TopicRepository topicRepository;
+    public MessageMapper(TopicRepository topicRepository) {
+        this.topicRepository = topicRepository;
+    }
 
     @PostConstruct
     public void setupMapper() {
         mapper.createTypeMap(Message.class, MessageDto.class)
                 .addMappings(m -> {
-                    m.skip(MessageDto::setAuthor);
                     m.skip(MessageDto::setTopic);
                     m.skip(MessageDto::setErrorMessage);
                     m.skip(MessageDto::setActive);
                 }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(MessageDto.class, Message.class)
                 .addMappings(m -> {
-                    m.skip(Message::setAuthor);
                     m.skip(Message::setTopic);
                     m.skip(Message::setActive);
                 }).setPostConverter(toEntityConverter());
@@ -47,14 +45,12 @@ public class MessageMapper extends AbstractDtoMapper<Message, MessageDto> {
 
     @Override
     protected void toDtoConverterImpl(Message source, MessageDto destination) {
-        destination.setAuthor(toId(source.getAuthor()));
         destination.setTopic(toId(source.getTopic()));
         destination.setActive(source.getActive().getId());
     }
 
     @Override
     protected void toEntityConverterImpl(MessageDto source, Message destination) {
-        whenNotNull(source.getAuthor(), author -> destination.setAuthor(userRepository.getOne(author)));
         whenNotNull(source.getTopic(), topic -> destination.setTopic(topicRepository.getOne(topic)));
         whenNotNull(source.getActive(), activeType -> destination.setActive(ActiveType.valueOf(source.getActive())));
     }

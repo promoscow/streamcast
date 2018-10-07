@@ -21,7 +21,6 @@ public class UserDto extends AbstractDto {
     private List<Long> subscribers;
     private List<Long> topicsCreated;
     private List<Long> topicsSubscribed;
-    private List<Long> messagesPosted;
 
     @Builder
     public UserDto(Long id,
@@ -31,15 +30,13 @@ public class UserDto extends AbstractDto {
                    List<Long> authors,
                    List<Long> subscribers,
                    List<Long> topicsCreated,
-                   List<Long> topicsSubscribed,
-                   List<Long> messagesPosted
+                   List<Long> topicsSubscribed
     ) {
         super(id, errorMessage, created, active);
         this.authors = authors;
         this.subscribers = subscribers;
         this.topicsCreated = topicsCreated;
         this.topicsSubscribed = topicsSubscribed;
-        this.messagesPosted = messagesPosted;
     }
 
     public List<Long> getAuthors() {
@@ -72,14 +69,6 @@ public class UserDto extends AbstractDto {
 
     public void setTopicsSubscribed(List<Long> topicsSubscribed) {
         this.topicsSubscribed = topicsSubscribed;
-    }
-
-    public List<Long> getMessagesPosted() {
-        return messagesPosted;
-    }
-
-    public void setMessagesPosted(List<Long> messagesPosted) {
-        this.messagesPosted = messagesPosted;
     }
 }
 

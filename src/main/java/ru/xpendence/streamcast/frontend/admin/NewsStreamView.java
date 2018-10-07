@@ -1,17 +1,19 @@
 package ru.xpendence.streamcast.frontend.admin;
 
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ru.xpendence.streamcast.dto.UserDto;
 import ru.xpendence.streamcast.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+
+import static com.sun.xml.internal.ws.util.JAXWSUtils.getUUID;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -19,7 +21,6 @@ import java.util.List;
  * Time: 20:57
  * e-mail: 2262288@gmail.com
  */
-@Component
 @Route(value = "admin")
 @Theme(value = Lumo.class)
 public class NewsStreamView extends VerticalLayout {
@@ -30,7 +31,8 @@ public class NewsStreamView extends VerticalLayout {
 
     @Autowired
     public NewsStreamView(UserService userService) {
-        add(grid);
+        Label label = new Label(getUUID());
+        add(label, grid);
         this.userService = userService;
     }
 

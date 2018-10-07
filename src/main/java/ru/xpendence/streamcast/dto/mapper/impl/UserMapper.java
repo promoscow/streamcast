@@ -4,14 +4,12 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.xpendence.streamcast.attributes.ActiveType;
-import ru.xpendence.streamcast.domain.QMessage;
 import ru.xpendence.streamcast.domain.QTopic;
 import ru.xpendence.streamcast.domain.QUser;
 import ru.xpendence.streamcast.domain.User;
 import ru.xpendence.streamcast.dto.UserDto;
 import ru.xpendence.streamcast.dto.mapper.AbstractDtoMapper;
 import ru.xpendence.streamcast.dto.mapper.Mapper;
-import ru.xpendence.streamcast.repository.MessageRepository;
 import ru.xpendence.streamcast.repository.TopicRepository;
 
 import javax.annotation.PostConstruct;
@@ -28,13 +26,10 @@ import javax.persistence.PersistenceContext;
 @Mapper(entity = User.class, dto = UserDto.class)
 public class UserMapper extends AbstractDtoMapper<User, UserDto> {
 
-    private final MessageRepository messageRepository;
     private final TopicRepository topicRepository;
 
     @Autowired
-    public UserMapper(MessageRepository messageRepository,
-                      TopicRepository topicRepository) {
-        this.messageRepository = messageRepository;
+    public UserMapper(TopicRepository topicRepository) {
         this.topicRepository = topicRepository;
     }
 
@@ -50,7 +45,6 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
                     m.skip(UserDto::setActive);
                     m.skip(UserDto::setAuthors);
                     m.skip(UserDto::setSubscribers);
-                    m.skip(UserDto::setMessagesPosted);
                     m.skip(UserDto::setTopicsCreated);
                     m.skip(UserDto::setTopicsSubscribed);
                     m.skip(UserDto::setErrorMessage);
@@ -59,7 +53,6 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
                 .addMappings(m -> {
                     m.skip(User::setActive);
                     m.skip(User::setSubscribers);
-                    m.skip(User::setMessagesPosted);
                     m.skip(User::setTopicsCreated);
                     m.skip(User::setTopicsSubscribed);
                     m.skip(User::setAuthors);
@@ -70,7 +63,6 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
     protected void toDtoConverterImpl(User source, UserDto destination) {
         whenNotNull(source.getAuthors(), authors -> destination.setAuthors(toIdList(authors)));
         whenNotNull(source.getSubscribers(), subscribers -> destination.setSubscribers(toIdList(subscribers)));
-        whenNotNull(source.getMessagesPosted(), messages -> destination.setMessagesPosted(toIdList(messages)));
         whenNotNull(source.getTopicsCreated(), topics -> destination.setTopicsCreated(toIdList(topics)));
         whenNotNull(source.getTopicsSubscribed(), topics -> destination.setTopicsSubscribed(toIdList(topics)));
         destination.setActive(source.getActive().getId());
@@ -93,8 +85,6 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
                         .on(qUser.id.in(subscribers))
                         .fetch()
         ));
-        whenNotNull(source.getMessagesPosted(), messages
-                -> destination.setMessagesPosted(toEntityList(messageRepository.findAll(QMessage.message.id.in(messages)))));
         whenNotNull(source.getTopicsCreated(), topics
                 -> destination.setTopicsCreated(toEntityList(topicRepository.findAll(QTopic.topic.id.in(topics)))));
         whenNotNull(source.getTopicsSubscribed(), topics

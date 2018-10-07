@@ -19,15 +19,8 @@ import javax.persistence.*;
 @Setter
 public class Message extends AbstractEntity {
 
-    private User author;
     private Topic topic;
     private String text;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "author")
-    public User getAuthor() {
-        return author;
-    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "topics")
