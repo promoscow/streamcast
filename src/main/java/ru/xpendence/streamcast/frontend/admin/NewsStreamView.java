@@ -4,6 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.spring.annotation.UIScope;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import static com.sun.xml.internal.ws.util.JAXWSUtils.getUUID;
  * Time: 20:57
  * e-mail: 2262288@gmail.com
  */
-@Route(value = "admin")
+@UIScope
+@Route(value = "admin/users")
 @Theme(value = Lumo.class)
 public class NewsStreamView extends VerticalLayout {
 

@@ -45,9 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin**").access("hasRole('ADMIN')")
-                .and().formLogin()/*.failureForwardUrl("/")*/.successForwardUrl("/admin");
-//                .defaultSuccessUrl("/admin");
+                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .and()
+                .formLogin()
+//                .failureHandler()
+                .defaultSuccessUrl("/admin/users");
     }
 
     @Override

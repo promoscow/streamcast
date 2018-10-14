@@ -21,6 +21,11 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+//@ActiveProfiles("dev")
+//@ContextConfiguration(classes = {
+//        MainConfig.class,
+//        TestConfig.class
+//})
 public class StreamcastApplicationTests {
 
 	@PersistenceContext
