@@ -5,6 +5,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Constructor;
 import java.util.Objects;
 
 /**
@@ -31,7 +32,9 @@ public class DefinitionAnnotationProcessor implements BeanPostProcessor {
         if (beanClass.isAnnotationPresent(Definition.class)) {
             Definition definition = beanClass.getAnnotation(Definition.class);
             Class<?> entity = definition.entity();
-
+            Constructor<?>[] constructors = beanClass.getConstructors();
+            Class<?>[] parameterTypes = constructors[0].getParameterTypes();
+            System.out.println();
         }
 
         return bean;

@@ -14,4 +14,8 @@ import java.lang.annotation.*;
 public @interface Definition {
 
     Class<?> entity();
+
+    Class<?> repository();
+
+    Class<?> mapper();
 }

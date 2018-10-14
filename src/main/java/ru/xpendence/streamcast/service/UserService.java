@@ -6,6 +6,7 @@ import ru.xpendence.streamcast.domain.User;
 import ru.xpendence.streamcast.domain.definition.Definition;
 import ru.xpendence.streamcast.dto.UserDto;
 import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
+import ru.xpendence.streamcast.dto.mapper.impl.UserMapper;
 import ru.xpendence.streamcast.repository.UserRepository;
 import ru.xpendence.streamcast.service.common.AbstractService;
 
@@ -16,7 +17,7 @@ import ru.xpendence.streamcast.service.common.AbstractService;
  * e-mail: 2262288@gmail.com
  */
 @Service
-@Definition(entity = User.class)
+@Definition(entity = User.class, repository = UserRepository.class, mapper = UserMapper.class)
 public class UserService extends AbstractService<User, UserDto, QUser,
         EntityDtoMapper<User, UserDto>, UserRepository> {
 
