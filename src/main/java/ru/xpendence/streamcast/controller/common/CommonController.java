@@ -1,9 +1,10 @@
 package ru.xpendence.streamcast.controller.common;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
+import ru.xpendence.streamcast.dto.transfer.Validation;
 
 import java.util.List;
 
@@ -13,13 +14,13 @@ import java.util.List;
  * Time: 11:10
  * e-mail: 2262288@gmail.com
  */
-public interface CommonController<E extends AbstractEntity, D extends AbstractDto> {
+public interface CommonController<D extends AbstractDto> {
 
     @PostMapping
-    ResponseEntity<D> save(@RequestBody D dto);
+    ResponseEntity<D> save(@Validated(Validation.New.class) @RequestBody D dto);
 
     @PostMapping("/all")
-    ResponseEntity<List<D>> saveAll(@RequestBody List<D> dtoList);
+    ResponseEntity<List<D>> saveAll(@Validated(Validation.Exists.class) @RequestBody List<D> dtoList);
 
     @PutMapping
     ResponseEntity<D> update(@RequestBody D dto);

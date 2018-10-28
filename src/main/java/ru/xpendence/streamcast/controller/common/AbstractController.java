@@ -27,7 +27,7 @@ public abstract class AbstractController<
         M extends EntityDtoMapper<E, D>,
         R extends RepositoryCustom<E, Q, Long>,
         S extends CommonService<E, D>>
-        implements CommonController<E, D> {
+        implements CommonController<D> {
 
     private final S service;
 
