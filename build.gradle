@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.5.BUILD-SNAPSHOT'
+		springBootVersion = '2.0.5.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -43,6 +43,7 @@ dependencies {
 	compile('com.vaadin:vaadin-spring-boot-starter')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.security.oauth.boot:name:spring-security-oauth2-autoconfigure:2.0.5.RELEASE')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.kafka:spring-kafka')
 	compile('io.vavr:vavr:0.9.2')
