@@ -1,7 +1,9 @@
 package ru.xpendence.streamcast.dto;
 
 import lombok.*;
+import ru.xpendence.streamcast.dto.transfer.Validation;
 
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,11 +17,19 @@ import java.util.List;
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class UserDto extends AbstractDto {
 
+    @Null(groups = {Validation.New.class})
     private List<Long> authors;
+
+    @Null(groups = {Validation.New.class, Validation.Exists.class})
     private List<Long> subscribers;
+
+    @Null(groups = {Validation.New.class, Validation.Exists.class})
     private List<Long> topicsCreated;
+
     private List<Long> topicsSubscribed;
 
     @Builder
@@ -36,38 +46,6 @@ public class UserDto extends AbstractDto {
         this.authors = authors;
         this.subscribers = subscribers;
         this.topicsCreated = topicsCreated;
-        this.topicsSubscribed = topicsSubscribed;
-    }
-
-    public List<Long> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<Long> authors) {
-        this.authors = authors;
-    }
-
-    public List<Long> getSubscribers() {
-        return subscribers;
-    }
-
-    public void setSubscribers(List<Long> subscribers) {
-        this.subscribers = subscribers;
-    }
-
-    public List<Long> getTopicsCreated() {
-        return topicsCreated;
-    }
-
-    public void setTopicsCreated(List<Long> topicsCreated) {
-        this.topicsCreated = topicsCreated;
-    }
-
-    public List<Long> getTopicsSubscribed() {
-        return topicsSubscribed;
-    }
-
-    public void setTopicsSubscribed(List<Long> topicsSubscribed) {
         this.topicsSubscribed = topicsSubscribed;
     }
 }

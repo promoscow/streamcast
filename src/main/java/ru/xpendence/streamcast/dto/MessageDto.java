@@ -1,9 +1,10 @@
 package ru.xpendence.streamcast.dto;
 
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import ru.xpendence.streamcast.dto.transfer.Validation;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 
 /**
@@ -13,11 +14,17 @@ import java.time.LocalDateTime;
  * e-mail: 2262288@gmail.com
  */
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
 @EqualsAndHashCode(callSuper = false)
 public class MessageDto extends AbstractDto {
 
+    @NotNull(groups = {Validation.New.class})
+    @Null(groups = {Validation.Exists.class})
     private Long topic;
+
+    @NotNull(groups = {Validation.New.class})
     private String text;
 
     public MessageDto(Long id,
@@ -28,22 +35,6 @@ public class MessageDto extends AbstractDto {
                       String text) {
         super(id, errorMessage, created, active);
         this.topic = topic;
-        this.text = text;
-    }
-
-    public Long getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Long topic) {
-        this.topic = topic;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
         this.text = text;
     }
 }

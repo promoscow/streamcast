@@ -1,9 +1,10 @@
 package ru.xpendence.streamcast.dto;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+import ru.xpendence.streamcast.dto.transfer.Validation;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,12 +15,22 @@ import java.util.List;
  * e-mail: 2262288@gmail.com
  */
 @ToString
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 public class TopicDto extends AbstractDto {
 
+    @NotNull(groups = {Validation.New.class})
+    @Null(groups = {Validation.Exists.class})
     private Long author;
+
+    @Null(groups = {Validation.New.class, Validation.Exists.class})
     private List<Long> subscribers;
+
+    @Null
     private List<Long> messages;
+
+    @NotNull(groups = {Validation.New.class})
     private String topic;
 
     public TopicDto() {
@@ -38,38 +49,6 @@ public class TopicDto extends AbstractDto {
         this.author = author;
         this.subscribers = subscribers;
         this.messages = messages;
-        this.topic = topic;
-    }
-
-    public Long getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Long author) {
-        this.author = author;
-    }
-
-    public List<Long> getSubscribers() {
-        return subscribers;
-    }
-
-    public void setSubscribers(List<Long> subscribers) {
-        this.subscribers = subscribers;
-    }
-
-    public List<Long> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Long> messages) {
-        this.messages = messages;
-    }
-
-    public String getTopic() {
-        return topic;
-    }
-
-    public void setTopic(String topic) {
         this.topic = topic;
     }
 }

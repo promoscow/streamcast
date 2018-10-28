@@ -1,6 +1,7 @@
 package ru.xpendence.streamcast.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,7 @@ public abstract class AbstractDto implements Serializable {
     private Long id;
 
     @Null
+    @JsonProperty(value = "error_message")
     @JsonView(value = {View.New.class, View.Exists.class})
     private String errorMessage;
 
@@ -39,6 +41,7 @@ public abstract class AbstractDto implements Serializable {
     @JsonView(value = {View.New.class})
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime created;
+
 
     @JsonView(value = {View.DoNotShow.class})
     private Integer active;
