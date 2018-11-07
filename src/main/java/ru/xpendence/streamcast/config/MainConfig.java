@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -16,6 +17,7 @@ import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
  * e-mail: 2262288@gmail.com
  */
 @Configuration
+@EnableAspectJAutoProxy
 public class MainConfig {
 
     @Bean
