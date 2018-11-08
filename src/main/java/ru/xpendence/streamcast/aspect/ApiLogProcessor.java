@@ -3,7 +3,6 @@ package ru.xpendence.streamcast.aspect;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
-import ru.xpendence.streamcast.dto.AbstractDto;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -13,10 +12,10 @@ import ru.xpendence.streamcast.dto.AbstractDto;
  */
 @Aspect
 @Component
-public class ApiLogProcessor<T extends AbstractDto> {
+public class ApiLogProcessor {
 
     @Before(value = "@annotation(request) && args(dto)")
-    public void before(PostApiRequest request, T dto) {
+    public void before(PostApiRequest request, Object dto) {
         System.out.println();
     }
 }

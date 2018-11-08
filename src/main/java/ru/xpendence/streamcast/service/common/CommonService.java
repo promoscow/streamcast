@@ -1,7 +1,6 @@
 package ru.xpendence.streamcast.service.common;
 
 import org.springframework.transaction.annotation.Transactional;
-import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
 
 import java.util.List;
@@ -13,9 +12,7 @@ import java.util.Optional;
  * Time: 22:38
  * e-mail: 2262288@gmail.com
  */
-public interface CommonService<
-        E extends AbstractEntity,
-        D extends AbstractDto> {
+public interface CommonService<D extends AbstractDto> {
 
     @Transactional
     Optional<D> save(D dto);

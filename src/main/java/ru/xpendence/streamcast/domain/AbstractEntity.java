@@ -1,5 +1,8 @@
 package ru.xpendence.streamcast.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.xpendence.streamcast.attributes.ActiveType;
 
 import javax.persistence.*;
@@ -14,6 +17,9 @@ import java.util.Objects;
  * e-mail: 2262288@gmail.com
  */
 @MappedSuperclass
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class AbstractEntity implements Serializable {
     private static final int START_SEQ = 1000000000;
 
@@ -21,6 +27,10 @@ public abstract class AbstractEntity implements Serializable {
     private LocalDateTime created;
     private LocalDateTime updated;
     private ActiveType active = ActiveType.ENABLED;
+
+    public AbstractEntity(Long id) {
+        this.id = id;
+    }
 
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
@@ -30,7 +40,7 @@ public abstract class AbstractEntity implements Serializable {
     }
 
     @Column(name = "created", updatable = false)
-    private LocalDateTime getCreated() {
+    LocalDateTime getCreated() {
         return created;
     }
 
@@ -54,21 +64,5 @@ public abstract class AbstractEntity implements Serializable {
     @Column(name = "active")
     public ActiveType getActive() {
         return active;
-    }
-
-    public void setActive(ActiveType active) {
-        this.active = active;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    private void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    private void setUpdated(LocalDateTime updated) {
-        this.updated = updated;
     }
 }
