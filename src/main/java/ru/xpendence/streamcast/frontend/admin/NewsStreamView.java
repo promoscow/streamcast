@@ -1,7 +1,6 @@
 package ru.xpendence.streamcast.frontend.admin;
 
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -13,8 +12,6 @@ import ru.xpendence.streamcast.service.impl.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
-
-import static com.sun.xml.internal.ws.util.JAXWSUtils.getUUID;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -33,8 +30,6 @@ public class NewsStreamView extends VerticalLayout {
 
     @Autowired
     public NewsStreamView(UserService userService) {
-        Label label = new Label(getUUID());
-        add(label, grid);
         this.userService = userService;
     }
 

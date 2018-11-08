@@ -33,12 +33,12 @@ public abstract class AbstractControllerTest extends AbstractTest {
     @Autowired
     private MessageRepository messageRepository;
 
-    public User author;
-    public Topic topic;
-    public Message message;
+    private User author;
+    private Topic topic;
+    private Message message;
 
-    public MvcResult result;
-    public MockMvc mockMvc;
+    protected MvcResult result;
+    protected MockMvc mockMvc;
 
     @Before
     public void setup() {

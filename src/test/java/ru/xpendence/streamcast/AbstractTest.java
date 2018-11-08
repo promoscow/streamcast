@@ -2,11 +2,7 @@ package ru.xpendence.streamcast;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.xpendence.streamcast.config.MainConfig;
-import ru.xpendence.streamcast.sample.TestConfig;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -16,10 +12,10 @@ import ru.xpendence.streamcast.sample.TestConfig;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("dev")
-@ContextConfiguration(classes = {
-        MainConfig.class,
-        TestConfig.class
-})
+//@ActiveProfiles("dev")
+//@ContextConfiguration(classes = {
+//        MainConfig.class,
+//        TestConfig.class
+//})
 public abstract class AbstractTest {
 }

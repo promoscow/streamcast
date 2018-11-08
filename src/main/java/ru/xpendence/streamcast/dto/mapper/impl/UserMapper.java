@@ -86,9 +86,9 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
                         .fetch()
         ));
         whenNotNull(source.getTopicsCreated(), topics
-                -> destination.setTopicsCreated(toEntityList(topicRepository.findAll(QTopic.topic.id.in(topics)))));
+                -> destination.setTopicsCreated(toEntityList(topicRepository.findAll(QTopic.topic1.id.in(topics)))));
         whenNotNull(source.getTopicsSubscribed(), topics
-                -> destination.setTopicsSubscribed(toEntityList(topicRepository.findAll(QTopic.topic.id.in(topics)))));
+                -> destination.setTopicsSubscribed(toEntityList(topicRepository.findAll(QTopic.topic1.id.in(topics)))));
         whenNotNull(source.getActive(), activeType
                 -> destination.setActive(ActiveType.valueOf(source.getActive())));
     }
