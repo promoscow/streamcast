@@ -29,7 +29,7 @@ public abstract class AbstractController<
         this.service = service;
     }
 
-    @PostApiRequest
+    @PostApiRequest(value = )
     @PostApiResponse
     @Override
     public ResponseEntity<D> save(@RequestBody D dto) {
