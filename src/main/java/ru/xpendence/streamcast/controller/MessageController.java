@@ -3,12 +3,8 @@ package ru.xpendence.streamcast.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.xpendence.streamcast.controller.common.AbstractController;
-import ru.xpendence.streamcast.domain.Message;
-import ru.xpendence.streamcast.domain.QMessage;
 import ru.xpendence.streamcast.dto.MessageDto;
-import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
-import ru.xpendence.streamcast.repository.MessageRepository;
-import ru.xpendence.streamcast.service.MessageService;
+import ru.xpendence.streamcast.service.impl.MessageService;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -18,8 +14,7 @@ import ru.xpendence.streamcast.service.MessageService;
  */
 @RestController
 @RequestMapping("/message")
-public class MessageController extends AbstractController<Message, MessageDto, QMessage,
-        EntityDtoMapper<Message, MessageDto>, MessageRepository, MessageService> {
+public class MessageController extends AbstractController<MessageDto, MessageService> {
 
     protected MessageController(MessageService service) {
         super(service);

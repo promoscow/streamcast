@@ -9,7 +9,7 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.xpendence.streamcast.dto.UserDto;
-import ru.xpendence.streamcast.service.UserService;
+import ru.xpendence.streamcast.service.impl.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.List;

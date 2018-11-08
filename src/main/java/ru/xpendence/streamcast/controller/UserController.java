@@ -3,12 +3,8 @@ package ru.xpendence.streamcast.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.xpendence.streamcast.controller.common.AbstractController;
-import ru.xpendence.streamcast.domain.QUser;
-import ru.xpendence.streamcast.domain.User;
 import ru.xpendence.streamcast.dto.UserDto;
-import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
-import ru.xpendence.streamcast.repository.UserRepository;
-import ru.xpendence.streamcast.service.UserService;
+import ru.xpendence.streamcast.service.impl.UserService;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -18,8 +14,7 @@ import ru.xpendence.streamcast.service.UserService;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController extends AbstractController<User, UserDto, QUser,
-        EntityDtoMapper<User, UserDto>, UserRepository, UserService> {
+public class UserController extends AbstractController<UserDto, UserService> {
 
     public UserController(UserService service) {
         super(service);

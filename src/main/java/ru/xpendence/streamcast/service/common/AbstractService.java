@@ -2,7 +2,7 @@ package ru.xpendence.streamcast.service.common;
 
 import com.querydsl.core.types.dsl.EntityPathBase;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.xpendence.streamcast.attributes.ErrorType;
+import ru.xpendence.streamcast.attributes.StatusCode;
 import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
 import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
@@ -52,7 +52,7 @@ public abstract class AbstractService<
     @Override
     public D get(Long id) {
         return repository.findById(id).map(mapper::convertToDto)
-                .orElseThrow(() -> new DatabaseException(ErrorType.ENTITY_NOT_FOUND.getDescription(), id));
+                .orElseThrow(() -> new DatabaseException(StatusCode.ENTITY_NOT_FOUND.getDescription(), id));
     }
 
     @Override

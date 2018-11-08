@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import ru.xpendence.streamcast.aspect.*;
-import ru.xpendence.streamcast.attributes.ErrorType;
-import ru.xpendence.streamcast.domain.AbstractEntity;
+import ru.xpendence.streamcast.attributes.StatusCode;
 import ru.xpendence.streamcast.dto.AbstractDto;
 import ru.xpendence.streamcast.exception.DatabaseException;
 import ru.xpendence.streamcast.service.common.CommonService;
@@ -19,9 +18,8 @@ import java.util.List;
  * e-mail: 2262288@gmail.com
  */
 public abstract class AbstractController<
-        E extends AbstractEntity,
         D extends AbstractDto,
-        S extends CommonService<E, D>>
+        S extends CommonService<D>>
         implements CommonController<D> {
 
     private final S service;
@@ -36,7 +34,7 @@ public abstract class AbstractController<
     @Override
     public ResponseEntity<D> save(@RequestBody D dto) {
         return service.save(dto).map(ResponseEntity::ok)
-                .orElseThrow(() -> new DatabaseException(ErrorType.ENTITY_NOT_SAVED.getDescription(), dto.toString()));
+                .orElseThrow(() -> new DatabaseException(StatusCode.ENTITY_NOT_SAVED.getDescription(), dto.toString()));
     }
 
     @PostApiRequest
@@ -51,7 +49,7 @@ public abstract class AbstractController<
     @Override
     public ResponseEntity<D> update(@RequestBody D dto) {
         return service.update(dto).map(ResponseEntity::ok)
-                .orElseThrow(() -> new DatabaseException(ErrorType.ENTITY_NOT_UPDATED.getDescription(), dto.toString()));
+                .orElseThrow(() -> new DatabaseException(StatusCode.ENTITY_NOT_UPDATED.getDescription(), dto.toString()));
     }
 
     @GetApiRequest

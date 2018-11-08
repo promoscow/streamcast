@@ -3,12 +3,8 @@ package ru.xpendence.streamcast.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.xpendence.streamcast.controller.common.AbstractController;
-import ru.xpendence.streamcast.domain.QTopic;
-import ru.xpendence.streamcast.domain.Topic;
 import ru.xpendence.streamcast.dto.TopicDto;
-import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
-import ru.xpendence.streamcast.repository.TopicRepository;
-import ru.xpendence.streamcast.service.TopicService;
+import ru.xpendence.streamcast.service.impl.TopicService;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -18,8 +14,7 @@ import ru.xpendence.streamcast.service.TopicService;
  */
 @RestController
 @RequestMapping("/topic")
-public class TopicController extends AbstractController<Topic, TopicDto, QTopic,
-        EntityDtoMapper<Topic, TopicDto>, TopicRepository, TopicService> {
+public class TopicController extends AbstractController<TopicDto, TopicService> {
 
     private TopicController(TopicService service) {
         super(service);

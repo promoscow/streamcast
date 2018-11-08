@@ -13,7 +13,7 @@ import ru.xpendence.streamcast.domain.User;
 import ru.xpendence.streamcast.dto.UserDto;
 import ru.xpendence.streamcast.dto.mapper.impl.UserMapper;
 import ru.xpendence.streamcast.repository.UserRepository;
-import ru.xpendence.streamcast.service.UserService;
+import ru.xpendence.streamcast.service.impl.UserService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -1,4 +1,4 @@
-package ru.xpendence.streamcast.service;
+package ru.xpendence.streamcast.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.xpendence.streamcast.domain.Message;
