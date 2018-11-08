@@ -37,4 +37,9 @@ public class MessageDto extends AbstractDto {
         this.topic = topic;
         this.text = text;
     }
+
+    public MessageDto(Long topic, String text) {
+        this.topic = topic;
+        this.text = text;
+    }
 }
