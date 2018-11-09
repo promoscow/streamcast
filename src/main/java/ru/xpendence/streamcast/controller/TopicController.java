@@ -16,7 +16,7 @@ import ru.xpendence.streamcast.service.impl.TopicService;
 @RequestMapping("/topic")
 public class TopicController extends AbstractController<TopicDto, TopicService> {
 
-    private TopicController(TopicService service) {
+    public TopicController(TopicService service) {
         super(service);
     }
 }

@@ -16,7 +16,7 @@ import ru.xpendence.streamcast.service.impl.MessageService;
 @RequestMapping("/message")
 public class MessageController extends AbstractController<MessageDto, MessageService> {
 
-    protected MessageController(MessageService service) {
+    public MessageController(MessageService service) {
         super(service);
     }
 }

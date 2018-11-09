@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import ru.xpendence.streamcast.attributes.TransferType;
+import ru.xpendence.streamcast.controller.UserController;
 import ru.xpendence.streamcast.controller.common.AbstractController;
+import ru.xpendence.streamcast.controller.common.CommonController;
 import ru.xpendence.streamcast.domain.ApiLog;
+import ru.xpendence.streamcast.domain.User;
 import ru.xpendence.streamcast.service.ApiLogService;
 import ru.xpendence.streamcast.util.JsonUtils;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.time.LocalDateTime;
 
@@ -28,6 +29,7 @@ import java.time.LocalDateTime;
 public class ApiLogProcessor {
 
     private final ApiLogService service;
+    private Annotation[] annotations;
 
     @Autowired
     public ApiLogProcessor(ApiLogService service) {
@@ -49,17 +51,14 @@ public class ApiLogProcessor {
     //для этого нужно как-то получить в процессор имя класса, который он вызывает
     //может быть, дёрнуть конструктор?
     private String getPath() {
-        AbstractController abstractController = (AbstractController) Proxy.newProxyInstance(
+        AbstractController controller = (AbstractController) ControllerProxy.newInstance(new CommonController<>(User.class), UserController.class);
+        CommonController abstractController = (CommonController) Proxy.newProxyInstance(
                 Thread.currentThread().getContextClassLoader(),
-                new Class<?>[] { AbstractController.class },
-                new InvocationHandler() {
-
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                Annotation[] annotations = proxy.getClass().getAnnotations();
-                return null;
-            }
-        });
+                new Class<?>[]{CommonController.class},
+                (proxy, method, args) -> {
+                    annotations = proxy.getClass().getAnnotations();
+                    return null;
+                });
         return null;
     }
 }

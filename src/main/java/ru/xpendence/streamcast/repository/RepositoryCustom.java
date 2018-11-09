@@ -17,10 +17,7 @@ import java.io.Serializable;
  * e-mail: 2262288@gmail.com
  */
 @NoRepositoryBean
-public interface RepositoryCustom<
-        T extends AbstractEntity,
-        P extends EntityPathBase<T>,
-        ID extends Serializable>
+public interface RepositoryCustom<T extends AbstractEntity, P extends EntityPathBase<T>, ID extends Serializable>
         extends JpaRepository<T, ID>, QuerydslPredicateExecutor<T>, QuerydslBinderCustomizer<P> {
 
     @Override

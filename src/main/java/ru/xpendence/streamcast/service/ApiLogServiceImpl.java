@@ -33,8 +33,7 @@ public class ApiLogServiceImpl implements ApiLogService {
     public void save(ApiLog apiLog) {
         Optional.of(repository.save(apiLog))
                 .orElseThrow(() -> new ApiLogException(
-                        String.format(StatusCode.ERROR_SAVING_LOG.getDescription(),
-                                JsonUtils.toJson(apiLog))
+                        String.format(StatusCode.ERROR_SAVING_LOG.getDescription(), JsonUtils.toJson(apiLog))
                 ));
     }
 
