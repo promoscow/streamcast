@@ -33,9 +33,9 @@ public abstract class AbstractControllerTest extends AbstractTest {
     @Autowired
     private MessageRepository messageRepository;
 
-    private User author;
-    private Topic topic;
-    private Message message;
+    protected User author;
+    protected Topic topic;
+    protected Message message;
 
     protected MvcResult result;
     protected MockMvc mockMvc;
@@ -50,11 +50,11 @@ public abstract class AbstractControllerTest extends AbstractTest {
     }
 
     private Message createMessage() {
-        return new Message(topic, "Test message");
+        return new Message(topic, "Test message " + System.currentTimeMillis());
     }
 
     private Topic createTopic() {
-        return new Topic(author, "Test topic" + System.currentTimeMillis());
+        return new Topic(author, "Test topic " + System.currentTimeMillis());
     }
 
     protected User createAuthor() {

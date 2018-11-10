@@ -6,6 +6,9 @@ import ru.xpendence.streamcast.AbstractControllerTest;
 import ru.xpendence.streamcast.dto.MessageDto;
 import ru.xpendence.streamcast.util.JsonUtils;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -33,7 +36,7 @@ public class MessageControllerTest extends AbstractControllerTest {
 
     private MessageDto createMessageDto() {
         return new MessageDto(
-
+                topic.getId(), "Text message: " + LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
         );
     }
 }

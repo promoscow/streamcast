@@ -72,12 +72,12 @@ public class ApiLog extends AbstractEntity {
         return httpMethod;
     }
 
-    @Column(name = "path", columnDefinition = "mediumtext")
+    @Column(name = "path", columnDefinition = "text")
     public String getPath() {
         return path;
     }
 
-    @Column(name = "body", columnDefinition = "mediumtext")
+    @Column(name = "body", columnDefinition = "text")
     public String getBody() {
         return body;
     }

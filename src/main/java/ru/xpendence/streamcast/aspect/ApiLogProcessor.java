@@ -6,11 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import ru.xpendence.streamcast.attributes.TransferType;
-import ru.xpendence.streamcast.controller.UserController;
-import ru.xpendence.streamcast.controller.common.AbstractController;
 import ru.xpendence.streamcast.controller.common.CommonController;
 import ru.xpendence.streamcast.domain.ApiLog;
-import ru.xpendence.streamcast.domain.User;
 import ru.xpendence.streamcast.service.ApiLogService;
 import ru.xpendence.streamcast.util.JsonUtils;
 
@@ -42,6 +39,7 @@ public class ApiLogProcessor {
                 LocalDateTime.now(),
                 TransferType.REQUEST.name(),
                 HttpMethod.POST.name(),
+                // FIXME: 10.11.18 не удаётся достать метаданные класса-наследника и получить оттуда путь
                 getPath(),
                 JsonUtils.toJson(dto)
         ));
@@ -51,14 +49,24 @@ public class ApiLogProcessor {
     //для этого нужно как-то получить в процессор имя класса, который он вызывает
     //может быть, дёрнуть конструктор?
     private String getPath() {
-        AbstractController controller = (AbstractController) ControllerProxy.newInstance(new CommonController<>(User.class), UserController.class);
-        CommonController abstractController = (CommonController) Proxy.newProxyInstance(
-                Thread.currentThread().getContextClassLoader(),
-                new Class<?>[]{CommonController.class},
-                (proxy, method, args) -> {
+        CommonController controller = (CommonController) Proxy.newProxyInstance(
+                CommonController.class.getClassLoader(),
+                new Class[]{CommonController.class},
+                ((proxy, method, args) -> {
+                    System.out.println("--->");
+                    System.out.println("There is a proxy");
                     annotations = proxy.getClass().getAnnotations();
                     return null;
-                });
+                }));
+
+//        AbstractController controller = (AbstractController) ControllerProxy.newInstance(new CommonController<>(User.class), UserController.class);
+//        CommonController abstractController = (CommonController) Proxy.newProxyInstance(
+//                Thread.currentThread().getContextClassLoader(),
+//                new Class<?>[]{CommonController.class},
+//                (proxy, method, args) -> {
+//                    annotations = proxy.getClass().getAnnotations();
+//                    return null;
+//                });
         return null;
     }
 }

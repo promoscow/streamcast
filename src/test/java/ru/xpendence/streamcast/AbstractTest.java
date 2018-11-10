@@ -14,7 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @EnableJpaRepositories
+// FIXME: 10.11.18 при переключении на dev не работает H2
 //@ActiveProfiles("dev")
+
 //@ContextConfiguration(classes = {
 //        MainConfig.class
 //})
