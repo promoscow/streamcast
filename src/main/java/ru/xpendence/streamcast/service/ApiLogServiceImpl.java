@@ -9,7 +9,7 @@ import ru.xpendence.streamcast.attributes.StatusCode;
 import ru.xpendence.streamcast.domain.ApiLog;
 import ru.xpendence.streamcast.exception.ApiLogException;
 import ru.xpendence.streamcast.repository.ApiLogRepository;
-import ru.xpendence.streamcast.util.JsonUtils;
+import ru.xpendence.streamcast.service.util.JsonMapper;
 
 import java.util.Optional;
 
@@ -23,17 +23,19 @@ import java.util.Optional;
 public class ApiLogServiceImpl implements ApiLogService {
 
     private final ApiLogRepository repository;
+    private final JsonMapper jsonMapper;
 
     @Autowired
-    public ApiLogServiceImpl(ApiLogRepository repository) {
+    public ApiLogServiceImpl(ApiLogRepository repository, JsonMapper jsonMapper) {
         this.repository = repository;
+        this.jsonMapper = jsonMapper;
     }
 
     @Override
     public void save(ApiLog apiLog) {
         Optional.of(repository.save(apiLog))
                 .orElseThrow(() -> new ApiLogException(
-                        String.format(StatusCode.ERROR_SAVING_LOG.getDescription(), JsonUtils.toJson(apiLog))
+                        String.format(StatusCode.ERROR_SAVING_LOG.getDescription(), jsonMapper.toJson(apiLog))
                 ));
     }
 

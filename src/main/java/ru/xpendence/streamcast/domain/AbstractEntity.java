@@ -1,5 +1,6 @@
 package ru.xpendence.streamcast.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,8 @@ public abstract class AbstractEntity implements Serializable {
     private static final int START_SEQ = 1000000000;
 
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime created;
     private LocalDateTime updated;
     private ActiveType active = ActiveType.ENABLED;

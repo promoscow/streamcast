@@ -1,5 +1,7 @@
 package ru.xpendence.streamcast.controller.common;
 
+import com.querydsl.core.types.Predicate;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +31,7 @@ public interface CommonController<D extends AbstractDto> {
     ResponseEntity<D> get(@RequestParam Long id);
 
     @GetMapping("/all")
-    ResponseEntity<List<D>> getAll();
+    ResponseEntity<List<D>> getAll(Predicate predicate, Pageable pageable);
 
     @DeleteMapping
     ResponseEntity<Boolean> delete(@RequestParam Long id);

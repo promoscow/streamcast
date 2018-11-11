@@ -3,16 +3,15 @@ package ru.xpendence.streamcast.aspect;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.xpendence.streamcast.attributes.TransferType;
-import ru.xpendence.streamcast.controller.common.CommonController;
 import ru.xpendence.streamcast.domain.ApiLog;
 import ru.xpendence.streamcast.service.ApiLogService;
-import ru.xpendence.streamcast.util.JsonUtils;
+import ru.xpendence.streamcast.service.util.JsonMapper;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Proxy;
 import java.time.LocalDateTime;
 
 /**
@@ -25,12 +24,15 @@ import java.time.LocalDateTime;
 @Component
 public class ApiLogProcessor {
 
+    private final ApplicationContext context;
     private final ApiLogService service;
-    private Annotation[] annotations;
+    private final JsonMapper jsonMapper;
 
     @Autowired
-    public ApiLogProcessor(ApiLogService service) {
+    public ApiLogProcessor(ApiLogService service, ApplicationContext context, JsonMapper jsonMapper) {
         this.service = service;
+        this.context = context;
+        this.jsonMapper = jsonMapper;
     }
 
     @Before(value = "@annotation(request) && args(dto)")
@@ -39,34 +41,25 @@ public class ApiLogProcessor {
                 LocalDateTime.now(),
                 TransferType.REQUEST.name(),
                 HttpMethod.POST.name(),
-                // FIXME: 10.11.18 не удаётся достать метаданные класса-наследника и получить оттуда путь
-                getPath(),
-                JsonUtils.toJson(dto)
+                getPath(dto),
+                jsonMapper.toJson(dto)
         ));
     }
 
-    //выяснить через рефлексию
-    //для этого нужно как-то получить в процессор имя класса, который он вызывает
-    //может быть, дёрнуть конструктор?
-    private String getPath() {
-        CommonController controller = (CommonController) Proxy.newProxyInstance(
-                CommonController.class.getClassLoader(),
-                new Class[]{CommonController.class},
-                ((proxy, method, args) -> {
-                    System.out.println("--->");
-                    System.out.println("There is a proxy");
-                    annotations = proxy.getClass().getAnnotations();
-                    return null;
-                }));
-
-//        AbstractController controller = (AbstractController) ControllerProxy.newInstance(new CommonController<>(User.class), UserController.class);
-//        CommonController abstractController = (CommonController) Proxy.newProxyInstance(
-//                Thread.currentThread().getContextClassLoader(),
-//                new Class<?>[]{CommonController.class},
-//                (proxy, method, args) -> {
-//                    annotations = proxy.getClass().getAnnotations();
-//                    return null;
-//                });
-        return null;
+    // FIXME: 11.11.18 найти способ переделать этот пиздец
+    private String getPath(Object dto) {
+        String value = null;
+        try {
+            String bean = dto.getClass().getSimpleName().replace("Dto", "Controller");
+            String firstToReplace = String.valueOf(bean.charAt(0));
+            String controllerName = bean.replaceFirst(firstToReplace, firstToReplace.toLowerCase());
+            value = Class.forName(context.getBeansWithAnnotation(RequestMapping.class)
+                    .get(controllerName).toString().replaceAll("(@).+", ""))
+                    .getAnnotation(RequestMapping.class)
+                    .value()[0];
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 }

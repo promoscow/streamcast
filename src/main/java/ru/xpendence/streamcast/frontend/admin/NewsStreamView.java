@@ -7,6 +7,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import ru.xpendence.streamcast.dto.UserDto;
 import ru.xpendence.streamcast.service.impl.UserService;
 
@@ -35,7 +36,7 @@ public class NewsStreamView extends VerticalLayout {
 
     @PostConstruct
     private void init() {
-        List<UserDto> users = userService.getAll();
+        List<UserDto> users = userService.getAll(PageRequest.of(0, 20));
         grid.setItems(users);
     }
 }
