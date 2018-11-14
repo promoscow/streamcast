@@ -1,9 +1,7 @@
 package ru.xpendence.streamcast.service.common;
 
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import ru.xpendence.streamcast.attributes.StatusCode;
 import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
@@ -27,8 +25,8 @@ public abstract class AbstractService<
         M extends EntityDtoMapper<E, D>,
         R extends RepositoryCustom<E, Q, Long>> implements CommonService<D> {
 
-    private final R repository;
-    private final M mapper;
+    public final R repository;
+    public final M mapper;
 
     @Autowired
     public AbstractService(R repository, M mapper) {
@@ -57,10 +55,10 @@ public abstract class AbstractService<
                 .orElseThrow(() -> new DatabaseException(StatusCode.ENTITY_NOT_FOUND.getDescription(), id));
     }
 
-    @Override
-    public List<D> getAll(Predicate predicate, Pageable pageable) {
-        return mapper.convertToDtoList(repository.getAll(predicate, pageable));
-    }
+//    @Override
+//    public List<D> getAll(Predicate predicate, Pageable pageable) {
+//        return mapper.convertToDtoList(repository.getAll(predicate, pageable));
+//    }
 
     @Override
     public Boolean deleteById(Long id) {

@@ -1,5 +1,7 @@
 package ru.xpendence.streamcast.service.impl;
 
+import com.querydsl.core.types.Predicate;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.xpendence.streamcast.domain.QUser;
 import ru.xpendence.streamcast.domain.User;
@@ -7,6 +9,8 @@ import ru.xpendence.streamcast.dto.UserDto;
 import ru.xpendence.streamcast.dto.mapper.EntityDtoMapper;
 import ru.xpendence.streamcast.repository.UserRepository;
 import ru.xpendence.streamcast.service.common.AbstractService;
+
+import java.util.List;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -21,6 +25,11 @@ public class UserService extends AbstractService<User, UserDto, QUser,
 
     public UserService(UserRepository repository, EntityDtoMapper<User, UserDto> mapper) {
         super(repository, mapper);
+    }
+
+    @Override
+    public List<UserDto> getAll(Predicate predicate, Pageable pageable) {
+        return mapper.convertToDtoList(repository.getAll(predicate, pageable));
     }
 }
 

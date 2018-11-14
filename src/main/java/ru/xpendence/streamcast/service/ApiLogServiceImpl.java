@@ -46,7 +46,7 @@ public class ApiLogServiceImpl implements ApiLogService {
 
     @Override
     public Page<ApiLog> getAll(Predicate predicate, Pageable pageable) {
-        return null;
+        return repository.getAll(predicate, pageable);
     }
 
     @Override

@@ -1,8 +1,6 @@
 package ru.xpendence.streamcast.repository;
 
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.EntityPathBase;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -11,7 +9,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 import ru.xpendence.streamcast.domain.AbstractEntity;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -26,6 +23,4 @@ public interface RepositoryCustom<T extends AbstractEntity, P extends EntityPath
     @Override
     default void customize(QuerydslBindings bindings, P root) {
     }
-
-    List<T> getAll(Predicate predicate, Pageable pageable);
 }

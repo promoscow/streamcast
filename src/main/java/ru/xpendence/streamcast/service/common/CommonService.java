@@ -1,6 +1,7 @@
 package ru.xpendence.streamcast.service.common;
 
 import com.querydsl.core.types.Predicate;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import ru.xpendence.streamcast.dto.AbstractDto;
@@ -29,7 +30,7 @@ public interface CommonService<D extends AbstractDto> {
     D get(Long id);
 
     @Transactional
-    List<D> getAll(Predicate predicate, Pageable pageable);
+    Page<D> getAll(Predicate predicate, Pageable pageable);
 
     Boolean deleteById(Long id);
 

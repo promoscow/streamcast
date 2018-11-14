@@ -1,8 +1,12 @@
 package ru.xpendence.streamcast.repository;
 
+import com.querydsl.core.types.Predicate;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import ru.xpendence.streamcast.domain.ApiLog;
 import ru.xpendence.streamcast.domain.QApiLog;
+
+import java.util.List;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -12,4 +16,6 @@ import ru.xpendence.streamcast.domain.QApiLog;
  */
 @Repository
 public interface ApiLogRepository extends RepositoryCustom<ApiLog, QApiLog, Long> {
+
+    List<ApiLog> getAll(Predicate predicate, Pageable pageable);
 }
