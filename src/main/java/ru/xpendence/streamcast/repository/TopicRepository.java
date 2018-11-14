@@ -1,12 +1,11 @@
 package ru.xpendence.streamcast.repository;
 
 import com.querydsl.core.types.Predicate;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import ru.xpendence.streamcast.domain.QTopic;
 import ru.xpendence.streamcast.domain.Topic;
-
-import java.util.List;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -17,5 +16,5 @@ import java.util.List;
 @Repository
 public interface TopicRepository extends RepositoryCustom<Topic, QTopic, Long> {
 
-    List<Topic> getAll(Predicate predicate, Pageable pageable);
+    Page<Topic> getAll(Predicate predicate, Pageable pageable);
 }
