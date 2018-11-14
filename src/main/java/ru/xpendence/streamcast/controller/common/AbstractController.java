@@ -2,6 +2,7 @@ package ru.xpendence.streamcast.controller.common;
 
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -65,7 +66,7 @@ public abstract class AbstractController<
     @GetApiRequest
     @GetApiResponse
     @Override
-    public ResponseEntity<List<D>> getAll(Predicate predicate, Pageable pageable) {
+    public ResponseEntity<Page<D>> getAll(Predicate predicate, Pageable pageable) {
         return ResponseEntity.ok(service.getAll(predicate, pageable));
     }
 

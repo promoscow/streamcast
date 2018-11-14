@@ -3,6 +3,7 @@ package ru.xpendence.streamcast.service.common;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.xpendence.streamcast.attributes.StatusCode;
 import ru.xpendence.streamcast.domain.AbstractEntity;
@@ -58,8 +59,8 @@ public abstract class AbstractService<
     }
 
     @Override
-    public List<D> getAll(Predicate predicate, Pageable pageable) {
-        return mapper.convertToDtoList(repository.getAll(predicate, pageable));
+    public Page<D> getAll(Predicate predicate, Pageable pageable) {
+        return mapper.convertToDtoPage(repository.findAll(predicate, pageable), pageable);
     }
 
     @Override

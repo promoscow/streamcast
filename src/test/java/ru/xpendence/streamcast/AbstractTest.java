@@ -3,6 +3,7 @@ package ru.xpendence.streamcast;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -15,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @EnableJpaRepositories
 // FIXME: 10.11.18 при переключении на dev не работает H2
-//@ActiveProfiles("dev")
+@ActiveProfiles("dev")
 
 //@ContextConfiguration(classes = {
 //        MainConfig.class

@@ -1,5 +1,8 @@
 package ru.xpendence.streamcast.dto.mapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import ru.xpendence.streamcast.domain.AbstractEntity;
 import ru.xpendence.streamcast.dto.AbstractDto;
 
@@ -77,5 +80,9 @@ public interface EntityDtoMapper<E extends AbstractEntity, D extends AbstractDto
 
     default List<D> convertToDtoList(List<E> entities) {
         return entities.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    default Page<D> convertToDtoPage(Page<E> entities, Pageable pageable) {
+        return new PageImpl<>(convertToDtoList(entities.getContent()), pageable, entities.getTotalElements());
     }
 }
