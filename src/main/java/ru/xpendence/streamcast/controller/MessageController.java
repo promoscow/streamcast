@@ -1,8 +1,14 @@
 package ru.xpendence.streamcast.controller;
 
+import com.querydsl.core.types.Predicate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.xpendence.streamcast.controller.common.AbstractController;
+import ru.xpendence.streamcast.domain.Message;
 import ru.xpendence.streamcast.dto.MessageDto;
 import ru.xpendence.streamcast.service.impl.MessageService;
 
@@ -15,6 +21,13 @@ import ru.xpendence.streamcast.service.impl.MessageService;
 @RestController
 @RequestMapping("/message")
 public class MessageController extends AbstractController<MessageDto, MessageService> {
+
+    @Override
+    public ResponseEntity<Page<MessageDto>> getAll(
+            @QuerydslPredicate(root = Message.class) Predicate predicate,
+            Pageable pageable) {
+        return super.getAll(predicate, pageable);
+    }
 
     public MessageController(MessageService service) {
         super(service);
