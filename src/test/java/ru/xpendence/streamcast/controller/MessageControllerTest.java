@@ -1,6 +1,5 @@
 package ru.xpendence.streamcast.controller;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import ru.xpendence.streamcast.AbstractControllerTest;
@@ -30,7 +29,7 @@ public class MessageControllerTest extends AbstractControllerTest {
     @Autowired
     private JsonMapper jsonMapper;
 
-    @Test
+    @Override
     public void save() throws Exception {
         result = mockMvc.perform(post("/message")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -42,7 +41,7 @@ public class MessageControllerTest extends AbstractControllerTest {
         assertEquals(MediaType.APPLICATION_JSON_UTF8_VALUE, result.getResponse().getContentType());
     }
 
-    @Test
+    @Override
     public void update() throws Exception {
         message.setText("Updated text of message: " + System.currentTimeMillis());
         result = mockMvc.perform(put("/message")
@@ -56,7 +55,7 @@ public class MessageControllerTest extends AbstractControllerTest {
         assertEquals(MediaType.APPLICATION_JSON_UTF8_VALUE, result.getResponse().getContentType());
     }
 
-    @Test
+    @Override
     public void getTest() throws Exception {
         result = mockMvc.perform(get("/message")
                 .param("id", String.valueOf(message.getId())))
@@ -67,11 +66,12 @@ public class MessageControllerTest extends AbstractControllerTest {
         assertEquals(MediaType.APPLICATION_JSON_UTF8_VALUE, result.getResponse().getContentType());
     }
 
-    @Test
+    @Override
     public void getAll() throws Exception {
         result = mockMvc.perform(get("/message/all")
                 .param("page", "0")
-                .param("size", "20"))
+                .param("size", "20")
+                .param("topic", String.valueOf(topic.getId())))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -79,9 +79,14 @@ public class MessageControllerTest extends AbstractControllerTest {
         assertEquals(MediaType.APPLICATION_JSON_UTF8_VALUE, result.getResponse().getContentType());
     }
 
-    @Test
-    public void delete() throws Exception {
+    @Override
+    public void deleteTest() throws Exception {
+        result = mockMvc.perform(delete("/message").param("id", String.valueOf(message.getId())))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
 
+        assertEquals(MediaType.APPLICATION_JSON_UTF8_VALUE, result.getResponse().getContentType());
     }
 
     private MessageDto createMessageDto() {

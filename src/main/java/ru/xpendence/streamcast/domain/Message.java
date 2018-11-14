@@ -15,7 +15,7 @@ import javax.persistence.*;
  */
 @Table(name = "messages")
 @Entity
-@SQLDelete(sql = "UPDATE members SET active = 0 WHERE id = ?")
+@SQLDelete(sql = "UPDATE messages SET active = 0 WHERE id = ?")
 @Where(clause = "active = 1")
 @Setter
 @NoArgsConstructor
