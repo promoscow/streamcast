@@ -33,6 +33,8 @@ public class TopicDto extends AbstractDto {
     @NotNull(groups = {Validation.New.class})
     private String topic;
 
+    private String hashcode;
+
     public TopicDto() {
     }
 

@@ -2,11 +2,13 @@ package ru.xpendence.streamcast.domain;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -26,6 +28,7 @@ public class Topic extends AbstractEntity {
     private List<User> subscribers;
     private List<Message> messages;
     private String topic;
+    private String hashcode;
 
     public Topic(User author, String topic) {
         this.author = author;
@@ -56,5 +59,18 @@ public class Topic extends AbstractEntity {
     @Column(name = "topic")
     public String getTopic() {
         return topic;
+    }
+
+    // FIXME: 16.11.18 решить проблему с уникальностью
+    @Column(name = "hashcode", unique = true)
+    public String getHashcode() {
+        return hashcode;
+    }
+
+    @PrePersist
+    private void setup() {
+        if (Objects.isNull(hashcode)) {
+            this.setHashcode(RandomStringUtils.randomAlphanumeric(16));
+        }
     }
 }

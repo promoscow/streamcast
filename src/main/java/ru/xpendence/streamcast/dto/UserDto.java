@@ -32,7 +32,6 @@ public class UserDto extends AbstractDto {
 
     private List<Long> topicsSubscribed;
     private String nickname;
-    private String hashcode;
     private String description;
     private String verificationStatus;
 

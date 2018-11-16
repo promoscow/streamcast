@@ -1,14 +1,12 @@
 package ru.xpendence.streamcast.domain;
 
 import lombok.Setter;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import ru.xpendence.streamcast.attributes.VerificationStatus;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -28,7 +26,6 @@ public class User extends AbstractEntity {
     private List<Topic> topicsCreated;
     private List<Topic> topicsSubscribed;
     private String nickname;
-    private String hashcode;
     private String description;
     private VerificationStatus verificationStatus = VerificationStatus.NOT_VERIFIED;
 
@@ -72,11 +69,6 @@ public class User extends AbstractEntity {
         return nickname;
     }
 
-    @Column(name = "hashcode")
-    public String getHashcode() {
-        return hashcode;
-    }
-
     @Column(name = "description", length = 2000)
     public String getDescription() {
         return description;
@@ -85,12 +77,5 @@ public class User extends AbstractEntity {
     @Column(name = "verification_status")
     public VerificationStatus getVerificationStatus() {
         return verificationStatus;
-    }
-
-    @PrePersist
-    private void setup() {
-        if (Objects.isNull(hashcode)) {
-            this.setHashcode(RandomStringUtils.randomAlphanumeric(10));
-        }
     }
 }

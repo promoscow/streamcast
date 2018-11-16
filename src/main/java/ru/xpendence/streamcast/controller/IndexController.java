@@ -1,5 +1,6 @@
 package ru.xpendence.streamcast.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.xpendence.streamcast.domain.QMessage;
 import ru.xpendence.streamcast.dto.MessageDto;
+import ru.xpendence.streamcast.dto.transfer.View;
 import ru.xpendence.streamcast.service.impl.MessageService;
 
 /**
@@ -30,9 +32,10 @@ public class IndexController {
         this.messageService = messageService;
     }
 
+    @JsonView(value = View.Exists.class)
     @GetMapping(value = "/{hashcode}")
     public ResponseEntity<Page<MessageDto>> getByUserHashcode(@PathVariable("hashcode") String hashcode, Pageable pageable) {
-        BooleanExpression expression = QMessage.message.topic.author.hashcode.eq(hashcode);
+        BooleanExpression expression = QMessage.message.topic.hashcode.eq(hashcode);
         return ResponseEntity.ok(messageService.getAll(expression, pageable));
     }
 }
