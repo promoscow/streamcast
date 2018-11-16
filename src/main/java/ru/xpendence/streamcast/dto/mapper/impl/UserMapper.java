@@ -4,10 +4,10 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.xpendence.streamcast.attributes.ActiveType;
+import ru.xpendence.streamcast.attributes.VerificationStatus;
 import ru.xpendence.streamcast.domain.QTopic;
 import ru.xpendence.streamcast.domain.QUser;
 import ru.xpendence.streamcast.domain.User;
-import ru.xpendence.streamcast.dto.UserDetailsDto;
 import ru.xpendence.streamcast.dto.UserDto;
 import ru.xpendence.streamcast.dto.mapper.AbstractDtoMapper;
 import ru.xpendence.streamcast.dto.mapper.Mapper;
@@ -16,6 +16,8 @@ import ru.xpendence.streamcast.repository.TopicRepository;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -49,7 +51,6 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
                     m.skip(UserDto::setTopicsCreated);
                     m.skip(UserDto::setTopicsSubscribed);
                     m.skip(UserDto::setErrorMessage);
-                    m.skip(UserDto::setDetails);
                 }).setPostConverter(toDtoConverter());
         mapper.createTypeMap(UserDto.class, User.class)
                 .addMappings(m -> {
@@ -58,7 +59,6 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
                     m.skip(User::setTopicsCreated);
                     m.skip(User::setTopicsSubscribed);
                     m.skip(User::setAuthors);
-                    m.skip(User::setDetails);
                 }).setPostConverter(toEntityConverter());
     }
 
@@ -69,13 +69,7 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
         whenNotNull(source.getTopicsCreated(), topics -> destination.setTopicsCreated(toIdList(topics)));
         whenNotNull(source.getTopicsSubscribed(), topics -> destination.setTopicsSubscribed(toIdList(topics)));
         destination.setActive(source.getActive().getId());
-        whenNotNull(source.getDetails(), userDetails -> destination.setDetails(UserDetailsDto.builder()
-                .user(source.getId())
-                .description(source.getDetails().getDescription())
-                .hashcode(source.getDetails().getHashcode())
-                .nickname(source.getDetails().getNickname())
-                .verificationStatus(source.getDetails().getVerificationStatus().name())
-                .build()));
+        whenNotNull(source.getVerificationStatus(), verificationStatus -> destination.setVerificationStatus(verificationStatus.name()));
     }
 
     @Override
@@ -101,5 +95,11 @@ public class UserMapper extends AbstractDtoMapper<User, UserDto> {
                 -> destination.setTopicsSubscribed(toEntityList(topicRepository.findAll(QTopic.topic1.id.in(topics)))));
         whenNotNull(source.getActive(), activeType
                 -> destination.setActive(ActiveType.valueOf(source.getActive())));
+        whenNotNull(source.getVerificationStatus(), status -> destination.setVerificationStatus(getStatus(status)));
+    }
+
+    private VerificationStatus getStatus(String status) {
+        return Arrays.stream(VerificationStatus.values()).filter(s -> Objects.equals(s.name(), status)).findFirst()
+                .orElse(VerificationStatus.NOT_VERIFIED);
     }
 }

@@ -38,6 +38,6 @@ public class MessageController extends AbstractController<MessageDto, MessageSer
 
     @GetMapping(value = "/{hashcode}")
     public ResponseEntity<Page<MessageDto>> getByUserHashcode(@PathVariable("hashcode") String hashcode, Pageable pageable) {
-        return ResponseEntity.ok(service.getAll(QMessage.message.topic.author.details.hashcode.eq(hashcode), pageable));
+        return ResponseEntity.ok(service.getAll(QMessage.message.topic.author.hashcode.eq(hashcode), pageable));
     }
 }

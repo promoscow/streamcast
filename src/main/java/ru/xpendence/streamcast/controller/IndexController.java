@@ -32,7 +32,7 @@ public class IndexController {
 
     @GetMapping(value = "/{hashcode}")
     public ResponseEntity<Page<MessageDto>> getByUserHashcode(@PathVariable("hashcode") String hashcode, Pageable pageable) {
-        BooleanExpression expression = QMessage.message.topic.author.details.hashcode.eq(hashcode);
+        BooleanExpression expression = QMessage.message.topic.author.hashcode.eq(hashcode);
         return ResponseEntity.ok(messageService.getAll(expression, pageable));
     }
 }

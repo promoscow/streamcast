@@ -31,7 +31,10 @@ public class UserDto extends AbstractDto {
     private List<Long> topicsCreated;
 
     private List<Long> topicsSubscribed;
-    private UserDetailsDto details;
+    private String nickname;
+    private String hashcode;
+    private String description;
+    private String verificationStatus;
 
     @Builder
     public UserDto(Long id,
