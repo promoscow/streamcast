@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "topics")
-@SQLDelete(sql = "UPDATE members SET active = 0 WHERE id = ?")
+@SQLDelete(sql = "UPDATE topics SET active = 0 WHERE id = ?")
 @Where(clause = "active = 1")
 @Setter
 @NoArgsConstructor

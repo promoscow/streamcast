@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "users")
-@SQLDelete(sql = "UPDATE members SET active = 0 WHERE id = ?")
+@SQLDelete(sql = "UPDATE users SET active = 0 WHERE id = ?")
 @Where(clause = "active = 1")
 @Setter
 public class User extends AbstractEntity {
@@ -24,6 +24,7 @@ public class User extends AbstractEntity {
     private List<User> subscribers;
     private List<Topic> topicsCreated;
     private List<Topic> topicsSubscribed;
+    private UserDetails details;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -58,5 +59,11 @@ public class User extends AbstractEntity {
     )
     public List<Topic> getTopicsSubscribed() {
         return topicsSubscribed;
+    }
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    public UserDetails getDetails() {
+        return details;
     }
 }
