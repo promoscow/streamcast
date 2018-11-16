@@ -20,7 +20,7 @@ import javax.persistence.*;
 public class UserDetails extends AbstractEntity {
 
     private User user;
-    private String nickName;
+    private String nickname;
     private String hashcode;
     private String description;
 
@@ -31,8 +31,8 @@ public class UserDetails extends AbstractEntity {
     }
 
     @Column(name = "nick_name")
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
     @Column(name = "hashcode")
