@@ -31,6 +31,7 @@ public class UserDto extends AbstractDto {
     private List<Long> topicsCreated;
 
     private List<Long> topicsSubscribed;
+    private UserDetailsDto details;
 
     @Builder
     public UserDto(Long id,

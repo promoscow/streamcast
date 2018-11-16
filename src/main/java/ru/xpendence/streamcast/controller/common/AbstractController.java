@@ -1,5 +1,6 @@
 package ru.xpendence.streamcast.controller.common;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.xpendence.streamcast.aspect.*;
 import ru.xpendence.streamcast.attributes.StatusCode;
 import ru.xpendence.streamcast.dto.AbstractDto;
+import ru.xpendence.streamcast.dto.transfer.View;
 import ru.xpendence.streamcast.exception.DatabaseException;
 import ru.xpendence.streamcast.service.common.CommonService;
 
@@ -35,6 +37,7 @@ public abstract class AbstractController<
 
     @PostApiRequest
     @PostApiResponse
+    @JsonView(value = {View.New.class})
     @Override
     public ResponseEntity<D> save(@RequestBody D dto) {
         return service.save(dto).map(ResponseEntity::ok)
@@ -43,6 +46,7 @@ public abstract class AbstractController<
 
     @PostApiRequest
     @PostApiResponse
+    @JsonView(value = {View.New.class})
     @Override
     public ResponseEntity<List<D>> saveAll(@RequestBody List<D> dtoList) {
         return ResponseEntity.ok(service.saveAll(dtoList));
@@ -50,6 +54,7 @@ public abstract class AbstractController<
 
     @PutApiRequest
     @PutApiResponse
+    @JsonView(value = {View.Exists.class})
     @Override
     public ResponseEntity<D> update(@RequestBody D dto) {
         return service.update(dto).map(ResponseEntity::ok)
@@ -58,6 +63,7 @@ public abstract class AbstractController<
 
     @GetApiRequest
     @GetApiResponse
+    @JsonView(value = {View.Exists.class})
     @Override
     public ResponseEntity<D> get(@RequestParam Long id) {
         return ResponseEntity.ok(service.get(id));
@@ -65,6 +71,7 @@ public abstract class AbstractController<
 
     @GetApiRequest
     @GetApiResponse
+    @JsonView(value = {View.Exists.class})
     @Override
     public ResponseEntity<Page<D>> getAll(Predicate predicate, Pageable pageable) {
         return ResponseEntity.ok(service.getAll(predicate, pageable));

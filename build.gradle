@@ -60,6 +60,8 @@ dependencies {
 
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.7'
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.9.7'
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+
 
 	runtime('org.postgresql:postgresql')
 	runtime('com.h2database:h2')
