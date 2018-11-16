@@ -28,7 +28,7 @@ public abstract class AbstractController<
         S extends CommonService<D>>
         implements CommonController<D> {
 
-    private final S service;
+    protected final S service;
 
     @Autowired
     protected AbstractController(S service) {
