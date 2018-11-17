@@ -17,7 +17,7 @@ import ru.xpendence.streamcast.repository.UserRepository;
  * Author: Vyacheslav Chernyshov
  * Date: 08.11.2018
  * Time: 15:13
- * e-mail: vyacheslav.chernyshov@stoloto.ru
+ * e-mail: 2262288@gmail.com
  */
 public abstract class AbstractControllerTest extends AbstractTest {
 

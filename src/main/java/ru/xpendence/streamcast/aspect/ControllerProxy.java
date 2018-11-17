@@ -12,7 +12,7 @@ import java.lang.reflect.Proxy;
  * Author: Vyacheslav Chernyshov
  * Date: 09.11.2018
  * Time: 15:16
- * e-mail: vyacheslav.chernyshov@stoloto.ru
+ * e-mail: 2262288@gmail.com
  */
 public class ControllerProxy<D extends AbstractDto, S extends CommonService<D>> implements InvocationHandler {
 

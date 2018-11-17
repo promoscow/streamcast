@@ -6,7 +6,7 @@ import ru.xpendence.streamcast.AbstractControllerTest;
  * Author: Vyacheslav Chernyshov
  * Date: 14.11.2018
  * Time: 14:47
- * e-mail: vyacheslav.chernyshov@stoloto.ru
+ * e-mail: 2262288@gmail.com
  */
 public class TopicControllerTest extends AbstractControllerTest {
 

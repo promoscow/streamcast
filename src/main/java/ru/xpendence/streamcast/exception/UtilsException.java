@@ -4,7 +4,7 @@ package ru.xpendence.streamcast.exception;
  * Author: Vyacheslav Chernyshov
  * Date: 08.11.2018
  * Time: 14:30
- * e-mail: vyacheslav.chernyshov@stoloto.ru
+ * e-mail: 2262288@gmail.com
  */
 public class UtilsException extends CommonException {
 

@@ -17,7 +17,7 @@ import java.util.Optional;
  * Author: Vyacheslav Chernyshov
  * Date: 08.11.2018
  * Time: 14:18
- * e-mail: vyacheslav.chernyshov@stoloto.ru
+ * e-mail: 2262288@gmail.com
  */
 @Service
 public class ApiLogServiceImpl implements ApiLogService {

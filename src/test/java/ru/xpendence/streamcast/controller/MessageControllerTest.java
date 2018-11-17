@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Author: Vyacheslav Chernyshov
  * Date: 08.11.2018
  * Time: 15:11
- * e-mail: vyacheslav.chernyshov@stoloto.ru
+ * e-mail: 2262288@gmail.com
  */
 public class MessageControllerTest extends AbstractControllerTest {
 

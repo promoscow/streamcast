@@ -19,7 +19,7 @@ import ru.xpendence.streamcast.service.impl.MessageService;
  * Author: Vyacheslav Chernyshov
  * Date: 16.11.2018
  * Time: 15:45
- * e-mail: vyacheslav.chernyshov@stoloto.ru
+ * e-mail: 2262288@gmail.com
  */
 @Controller
 @RequestMapping("/")
@@ -34,7 +34,8 @@ public class IndexController {
 
     @JsonView(value = View.Exists.class)
     @GetMapping(value = "/{hashcode}")
-    public ResponseEntity<Page<MessageDto>> getByUserHashcode(@PathVariable("hashcode") String hashcode, Pageable pageable) {
+    public ResponseEntity<Page<MessageDto>> getByUserHashcode(@PathVariable("hashcode") String hashcode,
+                                                              Pageable pageable) {
         BooleanExpression expression = QMessage.message.topic.hashcode.eq(hashcode);
         return ResponseEntity.ok(messageService.getAll(expression, pageable));
     }
