@@ -28,6 +28,7 @@ public class User extends AbstractEntity {
     private String nickname;
     private String description;
     private VerificationStatus verificationStatus = VerificationStatus.NOT_VERIFIED;
+    private String email;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -77,5 +78,10 @@ public class User extends AbstractEntity {
     @Column(name = "verification_status")
     public VerificationStatus getVerificationStatus() {
         return verificationStatus;
+    }
+
+    @Column(name = "email")
+    public String getEmail() {
+        return email;
     }
 }

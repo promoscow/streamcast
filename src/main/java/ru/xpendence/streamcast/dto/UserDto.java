@@ -3,6 +3,7 @@ package ru.xpendence.streamcast.dto;
 import lombok.*;
 import ru.xpendence.streamcast.dto.transfer.Validation;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,6 +35,9 @@ public class UserDto extends AbstractDto {
     private String nickname;
     private String description;
     private String verificationStatus;
+
+    @Email
+    private String email;
 
     @Builder
     public UserDto(Long id,
